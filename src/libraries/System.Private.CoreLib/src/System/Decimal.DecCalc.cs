@@ -177,6 +177,13 @@ namespace System
                 return (uint)(BitConverter.DoubleToUInt64Bits(d) >> 52) & 0x7FFu;
             }
 
+            private static ulong DivRem64By32(ulong a, uint b, out uint rem)
+            {
+                ulong q = a / b;
+                rem = (uint)a - (uint)q * b;
+                return q;
+            }
+
             private static void UInt64x64To128(ulong a, ulong b, ref DecCalc result)
             {
                 ulong high = Math.BigMul(a, b, out ulong low);
@@ -194,36 +201,33 @@ namespace System
             /// <returns>Returns remainder. Quotient overwrites dividend.</returns>
             private static uint Div96By32(ref Buf12 bufNum, uint den)
             {
-                // TODO: https://github.com/dotnet/runtime/issues/5213
-                ulong tmp, div;
+                ulong tmp;
+                uint rem;
                 if (bufNum.U2 != 0)
                 {
                     tmp = bufNum.High64;
-                    div = tmp / den;
-                    bufNum.High64 = div;
-                    tmp = ((tmp - (uint)div * den) << 32) | bufNum.U0;
+                    bufNum.High64 = DivRem64By32(tmp, den, out rem);
+                    tmp = (((ulong)rem) << 32) | bufNum.U0;
                     if (tmp == 0)
                         return 0;
-                    uint div32 = (uint)(tmp / den);
-                    bufNum.U0 = div32;
-                    return (uint)tmp - div32 * den;
+                    bufNum.U0 = (uint)DivRem64By32(tmp, den, out rem);
+                    return rem;
                 }
 
                 tmp = bufNum.Low64;
                 if (tmp == 0)
                     return 0;
-                div = tmp / den;
-                bufNum.Low64 = div;
-                return (uint)(tmp - div * den);
+                bufNum.Low64 = DivRem64By32(tmp, den, out rem);
+                return rem;
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             private static bool Div96ByConst(ref ulong high64, ref uint low, uint pow)
             {
 #if TARGET_64BIT
-                ulong div64 = high64 / pow;
-                uint div = (uint)((((high64 - div64 * pow) << 32) + low) / pow);
-                if (low == div * pow)
+                ulong div64 = DivRem64By32(high64, pow, out uint rem);
+                uint div = (uint)DivRem64By32((((ulong)rem) << 32) + low, pow, out rem);
+                if (rem == 0)
                 {
                     high64 = div64;
                     low = div;
@@ -268,8 +272,8 @@ namespace System
                     mid32 = div + (mid32 << 16);
 
                     num += low >> 16;
-                    low16 = num / pow;
-                    num = (num - low16 * pow) << 16;
+                    (low16, rem) = Math.DivRem(num, pow);
+                    num = rem << 16;
 
                     num += (ushort)low;
                     (div, rem) = Math.DivRem(num, pow);
@@ -322,7 +326,7 @@ namespace System
             private static uint Div96By64(ref Buf12 bufNum, ulong den)
             {
                 Debug.Assert(den > bufNum.High64);
-                uint quo;
+                uint quo, rem;
                 ulong num;
                 uint num2 = bufNum.U2;
                 if (num2 == 0)
@@ -370,9 +374,8 @@ namespace System
                     //
                     return 0;
 
-                // TODO: https://github.com/dotnet/runtime/issues/5213
-                quo = (uint)(num64 / denHigh32);
-                num = bufNum.U0 | ((num64 - quo * denHigh32) << 32); // remainder
+                quo = (uint)DivRem64By32(num64, denHigh32, out rem);
+                num = bufNum.U0 | (((ulong)rem) << 32); // remainder
 
                 // Compute full remainder, rem = dividend - (quo * divisor).
                 //
@@ -416,9 +419,7 @@ namespace System
                     //
                     return 0;
 
-                // TODO: https://github.com/dotnet/runtime/issues/5213
-                uint quo = (uint)(dividend / den);
-                uint remainder = (uint)dividend - quo * den;
+                uint quo = (uint)DivRem64By32(dividend, den, out uint remainder);
 
                 // Compute full remainder, rem = dividend - (quo * divisor).
                 //
@@ -679,7 +680,7 @@ ThrowOverflow:
                 {
 #if TARGET_64BIT
                     ulong num = result[i] + ((ulong)remainder << 32);
-                    remainder = (uint)num - (result[i] = (uint)(num / power)) * power;
+                    result[i] = (uint)DivRem64By32(num, power, out remainder);
 #else
                     // 32-bit RyuJIT doesn't convert 64-bit division by constant into multiplication by reciprocal. Do half-width divisions instead.
                     Debug.Assert(power <= ushort.MaxValue);
@@ -716,12 +717,9 @@ ThrowOverflow:
                 const ulong highbit = 1UL << 32;
                 bufQuo.U2 = (uint)(highbit / 10);
                 ulong tmp = ((highbit % 10) << 32) + bufQuo.U1;
-                uint div = (uint)(tmp / 10);
-                bufQuo.U1 = div;
-                tmp = ((tmp - div * 10) << 32) + bufQuo.U0;
-                div = (uint)(tmp / 10);
-                bufQuo.U0 = div;
-                uint remainder = (uint)(tmp - div * 10);
+                bufQuo.U1 = (uint)DivRem64By32(tmp, 10, out uint remainder);
+                tmp = (((ulong)remainder) << 32) + bufQuo.U0;
+                bufQuo.U0 = (uint)DivRem64By32(tmp, 10, out remainder);
                 // The remainder is the last digit that does not fit, so we can use it to work out if we need to round up
                 if (remainder > 5 || remainder == 5 && (sticky || (bufQuo.U0 & 1) != 0))
                     Add32To96(ref bufQuo, 1);
@@ -1095,15 +1093,15 @@ AlignedScale:
 
                     const uint den = 10;
                     ulong num = high + (1UL << 32);
-                    high = (uint)(num / den);
-                    num = ((num - high * den) << 32) + (low64 >> 32);
-                    uint div = (uint)(num / den);
-                    num = ((num - div * den) << 32) + (uint)low64;
+                    high = (uint)DivRem64By32(num, den, out uint rem);
+                    num = (((ulong)rem) << 32) + (low64 >> 32);
+                    uint div = (uint)DivRem64By32(num, den, out rem);
+                    num = (((ulong)rem) << 32) + (uint)low64;
                     low64 = div;
                     low64 <<= 32;
-                    div = (uint)(num / den);
+                    div = (uint)DivRem64By32(num, den, out rem);
                     low64 += div;
-                    div = (uint)num - div * den;
+                    div = rem;
 
                     // See if we need to round up.
                     //
@@ -1781,9 +1779,8 @@ ReturnZero:
 
                     if ((byte)mant == 0 && lmax >= 8)
                     {
-                        const uint den = 100000000;
-                        ulong div = mant / den;
-                        if ((uint)mant == (uint)(div * den))
+                        ulong div = DivRem64By32(mant, 100000000, out uint rem);
+                        if (rem == 0)
                         {
                             mant = div;
                             power -= 8;
@@ -1793,9 +1790,8 @@ ReturnZero:
 
                     if (((uint)mant & 0xF) == 0 && lmax >= 4)
                     {
-                        const uint den = 10000;
-                        ulong div = mant / den;
-                        if ((uint)mant == (uint)(div * den))
+                        ulong div = DivRem64By32(mant, 10000, out uint rem);
+                        if (rem == 0)
                         {
                             mant = div;
                             power -= 4;
@@ -1805,9 +1801,8 @@ ReturnZero:
 
                     if (((uint)mant & 3) == 0 && lmax >= 2)
                     {
-                        const uint den = 100;
-                        ulong div = mant / den;
-                        if ((uint)mant == (uint)(div * den))
+                        ulong div = DivRem64By32(mant, 100, out uint rem);
+                        if (rem == 0)
                         {
                             mant = div;
                             power -= 2;
@@ -1818,8 +1813,8 @@ ReturnZero:
                     if (((uint)mant & 1) == 0 && lmax >= 1)
                     {
                         const uint den = 10;
-                        ulong div = mant / den;
-                        if ((uint)mant == (uint)(div * den))
+                        ulong div = DivRem64By32(mant, 10, out uint rem);
+                        if (rem == 0)
                         {
                             mant = div;
                             power--;
@@ -1955,9 +1950,7 @@ ReturnZero:
                             goto ThrowOverflow;
 
                         ulong num = Math.BigMul(remainder, power);
-                        // TODO: https://github.com/dotnet/runtime/issues/5213
-                        uint div = (uint)(num / den);
-                        remainder = (uint)num - div * den;
+                        uint div = (uint)DivRem64By32(num, den, out remainder);
 
                         if (!Add32To96(ref bufQuo, div))
                         {
@@ -2356,27 +2349,20 @@ ThrowOverflow:
                     uint n = d.uhi;
                     if (n == 0)
                     {
-                        ulong tmp = d.Low64;
-                        ulong div = tmp / divisor;
-                        d.Low64 = div;
-                        remainder = (uint)(tmp - div * divisor);
+                        d.Low64 = DivRem64By32(d.Low64, divisor, out remainder);
                     }
                     else
                     {
-                        uint q;
-                        d.uhi = q = n / divisor;
-                        remainder = n - q * divisor;
+                        (d.uhi, remainder) = Math.DivRem(n, divisor);
                         n = d.umid;
                         if ((n | remainder) != 0)
                         {
-                            d.umid = q = (uint)((((ulong)remainder << 32) | n) / divisor);
-                            remainder = n - q * divisor;
+                            d.umid = (uint)DivRem64By32((((ulong)remainder << 32) | n), divisor, out remainder);
                         }
                         n = d.ulo;
                         if ((n | remainder) != 0)
                         {
-                            d.ulo = q = (uint)((((ulong)remainder << 32) | n) / divisor);
-                            remainder = n - q * divisor;
+                            d.umid = (uint)DivRem64By32((((ulong)remainder << 32) | n), divisor, out remainder);
                         }
                     }
                     power = divisor;
@@ -2387,7 +2373,6 @@ ThrowOverflow:
 
                 {
                     power = UInt32Powers10[(int)scale];
-                    // TODO: https://github.com/dotnet/runtime/issues/5213
                     uint n = d.uhi;
                     if (n == 0)
                     {
@@ -2399,25 +2384,20 @@ ThrowOverflow:
                             remainder = 0;
                             goto checkRemainder;
                         }
-                        ulong div = tmp / power;
-                        d.Low64 = div;
-                        remainder = (uint)(tmp - div * power);
+                        d.Low64 = DivRem64By32(tmp, power, out remainder);
                     }
                     else
                     {
-                        uint q;
                         (d.uhi, remainder) = Math.DivRem(n, power);
                         n = d.umid;
                         if ((n | remainder) != 0)
                         {
-                            d.umid = q = (uint)((((ulong)remainder << 32) | n) / power);
-                            remainder = n - q * power;
+                            d.umid = (uint)DivRem64By32((((ulong)remainder << 32) | n), power, out remainder);
                         }
                         n = d.ulo;
                         if ((n | remainder) != 0)
                         {
-                            d.ulo = q = (uint)((((ulong)remainder << 32) | n) / power);
-                            remainder = n - q * power;
+                            d.umid = (uint)DivRem64By32((((ulong)remainder << 32) | n), power, out remainder);
                         }
                     }
                 }
@@ -2463,14 +2443,13 @@ done:
             internal static uint DecDivMod1E9(ref DecCalc value)
             {
                 ulong high64 = ((ulong)value.uhi << 32) + value.umid;
-                ulong div64 = high64 / TenToPowerNine;
+                ulong div64 = DivRem64By32(high64, TenToPowerNine, out uint rem);
                 value.uhi = (uint)(div64 >> 32);
                 value.umid = (uint)div64;
 
-                ulong num = ((high64 - (uint)div64 * TenToPowerNine) << 32) + value.ulo;
-                uint div = (uint)(num / TenToPowerNine);
-                value.ulo = div;
-                return (uint)num - div * TenToPowerNine;
+                ulong num = (((ulong)rem) << 32) + value.ulo;
+                value.ulo = (uint)DivRem64By32(num, TenToPowerNine, out rem);
+                return rem;
             }
 
             private readonly struct PowerOvfl
