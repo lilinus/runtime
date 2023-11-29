@@ -177,8 +177,10 @@ namespace System
                 return (uint)(BitConverter.DoubleToUInt64Bits(d) >> 52) & 0x7FFu;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             private static ulong DivRem64By32(ulong a, uint b, out uint rem)
             {
+                // TODO: https://github.com/dotnet/runtime/issues/5213
                 ulong q = a / b;
                 rem = (uint)a - (uint)q * b;
                 return q;
@@ -336,11 +338,8 @@ namespace System
                         // Result is zero.  Entire dividend is remainder.
                         return 0;
 
-                    // TODO: https://github.com/dotnet/runtime/issues/5213
-                    quo = (uint)(num / den);
-                    num -= quo * den; // remainder
-                    bufNum.Low64 = num;
-                    return quo;
+                    (bufNum.Low64, ulong rem64) = Math.DivRem(num, den);
+                    return (uint)rem64;
                 }
 
                 uint denHigh32 = (uint)(den >> 32);
