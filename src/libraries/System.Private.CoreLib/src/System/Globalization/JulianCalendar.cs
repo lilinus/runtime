@@ -91,7 +91,7 @@ namespace System.Globalization
                 // The minimum supported Julia date is Julian 0001/01/03.
                 if (day < 3)
                 {
-                    throw new ArgumentOutOfRangeException(null, SR.ArgumentOutOfRange_BadYearMonthDay);
+                    ThrowHelper.ThrowArgumentOutOfRange_BadYearMonthDay();
                 }
             }
 
@@ -313,7 +313,7 @@ namespace System.Globalization
 
             if (hour < 0 || hour >= 24 || minute < 0 || minute >= 60 || second < 0 || second >= 60)
             {
-                throw new ArgumentOutOfRangeException(null, SR.ArgumentOutOfRange_BadHourMinuteSecond);
+                ThrowHelper.ThrowArgumentOutOfRange_BadHourMinuteSecond();
             }
 
             return new DateTime(DateToTicks(year, month, day) + (new TimeSpan(0, hour, minute, second, millisecond)).Ticks);

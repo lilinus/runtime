@@ -86,7 +86,7 @@ namespace System.Globalization
         {
             if (year < MinYear || year > MaxYear)
             {
-                throw new ArgumentOutOfRangeException(nameof(year), SR.ArgumentOutOfRange_Year);
+                ThrowHelper.ThrowArgumentOutOfRange_Year();
             }
 
             static int P(int y) => (y + (y / 4) - (y / 100) + (y / 400)) % 7;
@@ -113,7 +113,7 @@ namespace System.Globalization
         {
             if (year < MinYear || year > MaxYear)
             {
-                throw new ArgumentOutOfRangeException(nameof(year), SR.ArgumentOutOfRange_Year);
+                ThrowHelper.ThrowArgumentOutOfRange_Year();
             }
 
             if (week < MinWeek || week > MaxWeek)

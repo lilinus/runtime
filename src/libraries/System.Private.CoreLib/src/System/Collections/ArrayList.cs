@@ -120,12 +120,12 @@ namespace System.Collections
         {
             get
             {
-                if (index < 0 || index >= _size) throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLess);
+                if (index < 0 || index >= _size) ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessException();
                 return _items[index];
             }
             set
             {
-                if (index < 0 || index >= _size) throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLess);
+                if (index < 0 || index >= _size) ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessException();
                 _items[index] = value;
                 _version++;
             }
@@ -356,7 +356,7 @@ namespace System.Collections
         public virtual int IndexOf(object? value, int startIndex)
         {
             if (startIndex > _size)
-                throw new ArgumentOutOfRangeException(nameof(startIndex), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                ThrowHelper.ThrowStartIndexArgumentOutOfRange_ArgumentOutOfRange_IndexMustBeLessOrEqual();
             return Array.IndexOf((Array)_items, value, startIndex, _size - startIndex);
         }
 
@@ -372,8 +372,8 @@ namespace System.Collections
         public virtual int IndexOf(object? value, int startIndex, int count)
         {
             if (startIndex > _size)
-                throw new ArgumentOutOfRangeException(nameof(startIndex), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
-            if (count < 0 || startIndex > _size - count) throw new ArgumentOutOfRangeException(nameof(count), SR.ArgumentOutOfRange_Count);
+                ThrowHelper.ThrowStartIndexArgumentOutOfRange_ArgumentOutOfRange_IndexMustBeLessOrEqual();
+            if (count < 0 || startIndex > _size - count) ThrowHelper.ThrowCountArgumentOutOfRange_ArgumentOutOfRange_Count();
             return Array.IndexOf((Array)_items, value, startIndex, count);
         }
 
@@ -384,7 +384,7 @@ namespace System.Collections
         public virtual void Insert(int index, object? value)
         {
             // Note that insertions at the end are legal.
-            if (index < 0 || index > _size) throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+            if (index < 0 || index > _size) ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessException();
 
             if (_size == _items.Length) EnsureCapacity(_size + 1);
             if (index < _size)
@@ -405,7 +405,7 @@ namespace System.Collections
         {
             ArgumentNullException.ThrowIfNull(c);
 
-            if (index < 0 || index > _size) throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+            if (index < 0 || index > _size) ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessOrEqualException();
 
             int count = c.Count;
             if (count > 0)
@@ -450,7 +450,7 @@ namespace System.Collections
         public virtual int LastIndexOf(object? value, int startIndex)
         {
             if (startIndex >= _size)
-                throw new ArgumentOutOfRangeException(nameof(startIndex), SR.ArgumentOutOfRange_IndexMustBeLess);
+                ThrowHelper.ThrowStartIndexArgumentOutOfRange_ArgumentOutOfRange_IndexMustBeLess();
             return LastIndexOf(value, startIndex, startIndex + 1);
         }
 
@@ -513,7 +513,7 @@ namespace System.Collections
         //
         public virtual void RemoveAt(int index)
         {
-            if (index < 0 || index >= _size) throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLess);
+            if (index < 0 || index >= _size) ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessException();
 
             _size--;
             if (index < _size)
@@ -591,7 +591,7 @@ namespace System.Collections
             ArgumentNullException.ThrowIfNull(c);
 
             int count = c.Count;
-            if (index < 0 || index > _size - count) throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+            if (index < 0 || index > _size - count) ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessOrEqualException();
 
             if (count > 0)
             {
@@ -862,8 +862,8 @@ namespace System.Collections
 
             public override int IndexOf(object? value, int startIndex, int count)
             {
-                if (startIndex < 0 || startIndex > Count) throw new ArgumentOutOfRangeException(nameof(startIndex), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
-                if (count < 0 || startIndex > Count - count) throw new ArgumentOutOfRangeException(nameof(count), SR.ArgumentOutOfRange_Count);
+                if (startIndex < 0 || startIndex > Count) ThrowHelper.ThrowStartIndexArgumentOutOfRange_ArgumentOutOfRange_IndexMustBeLessOrEqual();
+                if (count < 0 || startIndex > Count - count) ThrowHelper.ThrowCountArgumentOutOfRange_ArgumentOutOfRange_Count();
 
                 int endIndex = startIndex + count;
                 if (value == null)
@@ -892,7 +892,7 @@ namespace System.Collections
             {
                 ArgumentNullException.ThrowIfNull(c);
 
-                if (index < 0 || index > Count) throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                if (index < 0 || index > Count) ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessOrEqualException();
 
                 if (c.Count > 0)
                 {
@@ -930,8 +930,8 @@ namespace System.Collections
                 if (_list.Count == 0)
                     return -1;
 
-                if (startIndex < 0 || startIndex >= _list.Count) throw new ArgumentOutOfRangeException(nameof(startIndex), SR.ArgumentOutOfRange_IndexMustBeLess);
-                if (count < 0 || count > startIndex + 1) throw new ArgumentOutOfRangeException(nameof(count), SR.ArgumentOutOfRange_Count);
+                if (startIndex < 0 || startIndex >= _list.Count) ThrowHelper.ThrowStartIndexArgumentOutOfRange_ArgumentOutOfRange_IndexMustBeLess();
+                if (count < 0 || count > startIndex + 1) ThrowHelper.ThrowCountArgumentOutOfRange_ArgumentOutOfRange_Count();
 
                 int endIndex = startIndex - count + 1;
                 if (value == null)
@@ -1006,7 +1006,7 @@ namespace System.Collections
 
                 if (index < 0 || index > _list.Count - c.Count)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                    ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessOrEqualException();
                 }
 
                 if (c.Count > 0)
@@ -2362,7 +2362,7 @@ namespace System.Collections
             {
                 ArgumentOutOfRangeException.ThrowIfNegative(startIndex);
                 if (startIndex > _baseSize)
-                    throw new ArgumentOutOfRangeException(nameof(startIndex), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                    ThrowHelper.ThrowStartIndexArgumentOutOfRange_ArgumentOutOfRange_IndexMustBeLessOrEqual();
 
                 InternalUpdateRange();
                 int i = _baseList.IndexOf(value, _baseIndex + startIndex, _baseSize - startIndex);
@@ -2373,10 +2373,10 @@ namespace System.Collections
             public override int IndexOf(object? value, int startIndex, int count)
             {
                 if (startIndex < 0 || startIndex > _baseSize)
-                    throw new ArgumentOutOfRangeException(nameof(startIndex), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                    ThrowHelper.ThrowStartIndexArgumentOutOfRange_ArgumentOutOfRange_IndexMustBeLessOrEqual();
 
                 if (count < 0 || (startIndex > _baseSize - count))
-                    throw new ArgumentOutOfRangeException(nameof(count), SR.ArgumentOutOfRange_Count);
+                    ThrowHelper.ThrowCountArgumentOutOfRange_ArgumentOutOfRange_Count();
 
                 InternalUpdateRange();
                 int i = _baseList.IndexOf(value, _baseIndex + startIndex, count);
@@ -2386,7 +2386,7 @@ namespace System.Collections
 
             public override void Insert(int index, object? value)
             {
-                if (index < 0 || index > _baseSize) throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                if (index < 0 || index > _baseSize) ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessException();
 
                 InternalUpdateRange();
                 _baseList.Insert(_baseIndex + index, value);
@@ -2396,7 +2396,7 @@ namespace System.Collections
 
             public override void InsertRange(int index, ICollection c)
             {
-                if (index < 0 || index > _baseSize) throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                if (index < 0 || index > _baseSize) ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessOrEqualException();
                 ArgumentNullException.ThrowIfNull(c);
 
                 InternalUpdateRange();
@@ -2429,7 +2429,7 @@ namespace System.Collections
                     return -1;
 
                 if (startIndex >= _baseSize)
-                    throw new ArgumentOutOfRangeException(nameof(startIndex), SR.ArgumentOutOfRange_IndexMustBeLess);
+                    ThrowHelper.ThrowStartIndexArgumentOutOfRange_ArgumentOutOfRange_IndexMustBeLess();
                 ArgumentOutOfRangeException.ThrowIfNegative(startIndex);
 
                 int i = _baseList.LastIndexOf(value, _baseIndex + startIndex, count);
@@ -2441,7 +2441,7 @@ namespace System.Collections
 
             public override void RemoveAt(int index)
             {
-                if (index < 0 || index >= _baseSize) throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLess);
+                if (index < 0 || index >= _baseSize) ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessException();
 
                 InternalUpdateRange();
                 _baseList.RemoveAt(_baseIndex + index);
@@ -2482,7 +2482,7 @@ namespace System.Collections
             public override void SetRange(int index, ICollection c)
             {
                 InternalUpdateRange();
-                if (index < 0 || index >= _baseSize) throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLess);
+                if (index < 0 || index >= _baseSize) ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessException();
                 _baseList.SetRange(_baseIndex + index, c);
                 if (c.Count > 0)
                 {
@@ -2507,13 +2507,13 @@ namespace System.Collections
                 get
                 {
                     InternalUpdateRange();
-                    if (index < 0 || index >= _baseSize) throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLess);
+                    if (index < 0 || index >= _baseSize) ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessException();
                     return _baseList[_baseIndex + index];
                 }
                 set
                 {
                     InternalUpdateRange();
-                    if (index < 0 || index >= _baseSize) throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLess);
+                    if (index < 0 || index >= _baseSize) ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessException();
                     _baseList[_baseIndex + index] = value;
                     InternalUpdateVersion();
                 }

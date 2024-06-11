@@ -410,7 +410,7 @@ namespace System.Globalization
             long lDate = GetAbsoluteDateHijri(year, month, day);
             if (lDate < 0)
             {
-                throw new ArgumentOutOfRangeException(null, SR.ArgumentOutOfRange_BadYearMonthDay);
+                ThrowHelper.ThrowArgumentOutOfRange_BadYearMonthDay();
             }
 
             return new DateTime(lDate * TicksPerDay + TimeToTicks(hour, minute, second, millisecond));

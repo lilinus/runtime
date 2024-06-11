@@ -59,7 +59,7 @@ namespace System.Globalization
         {
             if (year < 1 || year > MaxCalendarYear || month < 1 || month > 12)
             {
-                throw new ArgumentOutOfRangeException(null, SR.ArgumentOutOfRange_BadYearMonthDay);
+                ThrowHelper.ThrowArgumentOutOfRange_BadYearMonthDay();
             }
 
             // day is one based, make 0 based since this will be the number of days we add to beginning of year below
@@ -381,7 +381,7 @@ namespace System.Globalization
 
             if (lDate < 0)
             {
-                throw new ArgumentOutOfRangeException(null, SR.ArgumentOutOfRange_BadYearMonthDay);
+                ThrowHelper.ThrowArgumentOutOfRange_BadYearMonthDay();
             }
 
             return new DateTime(lDate * TicksPerDay + TimeToTicks(hour, minute, second, millisecond));

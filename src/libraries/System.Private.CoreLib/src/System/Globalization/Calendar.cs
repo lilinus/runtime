@@ -693,7 +693,7 @@ namespace System.Globalization
         {
             if ((uint)hour >= 24 || (uint)minute >= 60 || (uint)second >= 60)
             {
-                throw new ArgumentOutOfRangeException(null, SR.ArgumentOutOfRange_BadHourMinuteSecond);
+                ThrowHelper.ThrowArgumentOutOfRange_BadHourMinuteSecond();
             }
             if ((uint)millisecond >= MillisPerSecond)
             {

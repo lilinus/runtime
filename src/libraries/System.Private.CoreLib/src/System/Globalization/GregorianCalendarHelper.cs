@@ -78,7 +78,7 @@ namespace System.Globalization
             {
                 if (throwOnError)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(year), SR.ArgumentOutOfRange_NeedNonNegNum);
+                    ThrowHelper.ThrowArgumentOutOfRangeException_NeedNonNegNum(nameof(year));
                 }
                 return -1;
             }

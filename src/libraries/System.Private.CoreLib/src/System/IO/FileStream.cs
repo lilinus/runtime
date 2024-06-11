@@ -68,7 +68,7 @@ namespace System.IO
         {
             if (handle.IsInvalid)
             {
-                throw new ArgumentException(SR.Arg_InvalidHandle, nameof(handle));
+                ThrowHelper.ThrowArgumentException_InvalidHandle(nameof(handle));
             }
             else if (access < FileAccess.Read || access > FileAccess.ReadWrite)
             {

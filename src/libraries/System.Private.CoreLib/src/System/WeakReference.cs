@@ -188,7 +188,7 @@ namespace System
                 // GC can finalize the instance if it becomes F-Reachable.
                 // That, however, cannot happen while we use the instance.
                 if (th == 0)
-                    throw new InvalidOperationException(SR.InvalidOperation_HandleIsNotInitialized);
+                    ThrowHelper.ThrowInvalidOperationException_HandleIsNotInitialized();
 
 #if FEATURE_COMINTEROP || FEATURE_COMWRAPPERS
                 var comInfo = ComAwareWeakReference.ComInfo.FromObject(value);

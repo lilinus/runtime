@@ -476,7 +476,7 @@ namespace System.Text
                     {
                         if (indexInBlock >= chunk.m_ChunkLength)
                         {
-                            throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLess);
+                            ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessException();
                         }
                         chunk.m_ChunkChars[indexInBlock] = value;
                         return;
@@ -484,7 +484,7 @@ namespace System.Text
                     chunk = chunk.m_ChunkPrevious;
                     if (chunk == null)
                     {
-                        throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLess);
+                        ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessException();
                     }
                 }
             }
@@ -781,7 +781,7 @@ namespace System.Text
             {
                 if (startIndex > value.Length - count)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(startIndex), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                    ThrowHelper.ThrowStartIndexArgumentOutOfRange_ArgumentOutOfRange_IndexMustBeLessOrEqual();
                 }
 
                 Append(ref Unsafe.Add(ref value.GetRawStringData(), startIndex), count);
@@ -820,7 +820,7 @@ namespace System.Text
 
             if (count > value.Length - startIndex)
             {
-                throw new ArgumentOutOfRangeException(nameof(startIndex), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                ThrowHelper.ThrowStartIndexArgumentOutOfRange_ArgumentOutOfRange_IndexMustBeLessOrEqual();
             }
 
             return AppendCore(value, startIndex, count);
@@ -938,7 +938,7 @@ namespace System.Text
             int currentLength = Length;
             if ((uint)index > (uint)currentLength)
             {
-                throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessOrEqualException();
             }
 
             if (value.IsEmpty || count == 0)
@@ -1292,7 +1292,7 @@ namespace System.Text
         {
             if ((uint)index > (uint)Length)
             {
-                throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessOrEqualException();
             }
 
             if (value != null)
@@ -1319,7 +1319,7 @@ namespace System.Text
         {
             if ((uint)index > (uint)Length)
             {
-                throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessOrEqualException();
             }
 
             Insert(index, ref value, 1);
@@ -1330,7 +1330,7 @@ namespace System.Text
         {
             if ((uint)index > (uint)Length)
             {
-                throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessOrEqualException();
             }
 
             if (value != null)
@@ -1345,7 +1345,7 @@ namespace System.Text
             int currentLength = Length;
             if ((uint)index > (uint)currentLength)
             {
-                throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessOrEqualException();
             }
 
             if (value == null)
@@ -1361,7 +1361,7 @@ namespace System.Text
             ArgumentOutOfRangeException.ThrowIfNegative(charCount);
             if (startIndex > value.Length - charCount)
             {
-                throw new ArgumentOutOfRangeException(nameof(startIndex), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                ThrowHelper.ThrowStartIndexArgumentOutOfRange_ArgumentOutOfRange_IndexMustBeLessOrEqual();
             }
 
             if (charCount > 0)
@@ -1397,7 +1397,7 @@ namespace System.Text
         {
             if ((uint)index > (uint)Length)
             {
-                throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessException();
             }
 
             if (value.Length != 0)
@@ -2081,7 +2081,7 @@ namespace System.Text
             int currentLength = Length;
             if ((uint)startIndex > (uint)currentLength)
             {
-                throw new ArgumentOutOfRangeException(nameof(startIndex), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                ThrowHelper.ThrowStartIndexArgumentOutOfRange_ArgumentOutOfRange_IndexMustBeLessOrEqual();
             }
             if (count < 0 || startIndex > currentLength - count)
             {
@@ -2210,7 +2210,7 @@ namespace System.Text
             int currentLength = Length;
             if ((uint)startIndex > (uint)currentLength)
             {
-                throw new ArgumentOutOfRangeException(nameof(startIndex), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                ThrowHelper.ThrowStartIndexArgumentOutOfRange_ArgumentOutOfRange_IndexMustBeLessOrEqual();
             }
 
             if (count < 0 || startIndex > currentLength - count)

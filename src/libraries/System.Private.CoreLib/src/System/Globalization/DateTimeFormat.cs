@@ -315,7 +315,7 @@ namespace System
                         //
                         // This means that '\' is at the end of the formatting string.
                         //
-                        throw new FormatException(SR.Format_InvalidString);
+                        ThrowHelper.ThrowFormatInvalidString();
                     }
                 }
                 else
@@ -521,7 +521,7 @@ namespace System
                         }
                         else
                         {
-                            throw new FormatException(SR.Format_InvalidString);
+                            ThrowHelper.ThrowFormatInvalidString();
                         }
                         break;
 
@@ -703,7 +703,7 @@ namespace System
                             // This means that '%' is at the end of the format string or
                             // "%%" appears in the format string.
                             //
-                            throw new FormatException(SR.Format_InvalidString);
+                            ThrowHelper.ThrowFormatInvalidString();
                         }
                         break;
 
@@ -727,7 +727,7 @@ namespace System
                             //
                             // This means that '\' is at the end of the formatting string.
                             //
-                            throw new FormatException(SR.Format_InvalidString);
+                            ThrowHelper.ThrowFormatInvalidString();
                         }
                         break;
 
@@ -1160,7 +1160,7 @@ namespace System
             if (offset.Ticks != NullOffset)
             {
                 // This format is not supported by DateTimeOffset
-                throw new FormatException(SR.Format_InvalidString);
+                ThrowHelper.ThrowFormatInvalidString();
             }
 
             // Universal time is always in Gregorian calendar. Ensure Gregorian is used.
@@ -1186,7 +1186,7 @@ namespace System
                         {
                             if (throwOnError)
                             {
-                                throw new FormatException(SR.Format_InvalidString);
+                                ThrowHelper.ThrowFormatInvalidString();
                             }
 
                             return false;
@@ -1229,7 +1229,7 @@ namespace System
                         // reject non-date formats
                         if (throwOnError)
                         {
-                            throw new FormatException(SR.Format_InvalidString);
+                            ThrowHelper.ThrowFormatInvalidString();
                         }
 
                         return false;
@@ -1258,7 +1258,7 @@ namespace System
                         {
                             if (throwOnError)
                             {
-                                throw new FormatException(SR.Format_InvalidString);
+                                ThrowHelper.ThrowFormatInvalidString();
                             }
 
                             return false;
@@ -1296,7 +1296,7 @@ namespace System
                     case 'k':
                         if (throwOnError)
                         {
-                            throw new FormatException(SR.Format_InvalidString);
+                            ThrowHelper.ThrowFormatInvalidString();
                         }
 
                         return false;
@@ -1762,7 +1762,7 @@ namespace System
                     results = new string[] { Format(dateTime, char.ToString(format), dtfi) };
                     break;
                 default:
-                    throw new FormatException(SR.Format_InvalidString);
+                    ThrowHelper.ThrowFormatInvalidString();
             }
             return results;
         }

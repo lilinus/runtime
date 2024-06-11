@@ -255,7 +255,7 @@ namespace System.Globalization
 
             if (!LunarToGregorian(year, month, day, out int gy, out int gm, out int gd))
             {
-                throw new ArgumentOutOfRangeException(null, SR.ArgumentOutOfRange_BadYearMonthDay);
+                ThrowHelper.ThrowArgumentOutOfRange_BadYearMonthDay();
             }
 
             return new DateTime(gy, gm, gd, hour, minute, second, millisecond);
