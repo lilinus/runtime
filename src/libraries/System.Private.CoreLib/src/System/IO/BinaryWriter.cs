@@ -233,7 +233,7 @@ namespace System.IO
             ArgumentOutOfRangeException.ThrowIfNegative(index);
             ArgumentOutOfRangeException.ThrowIfNegative(count);
             if (index > chars.Length - count)
-                throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexCount);
+                ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.index, ExceptionResource.ArgumentOutOfRange_IndexCount);
 
             WriteCharsCommonWithoutLengthPrefix(chars.AsSpan(index, count), useThisWriteOverride: false);
         }

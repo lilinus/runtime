@@ -85,7 +85,7 @@ namespace System.IO
             ArgumentOutOfRangeException.ThrowIfNegative(index);
             ArgumentOutOfRangeException.ThrowIfNegative(count);
             if (buffer.Length - index < count)
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
             _buffer = buffer;
             _origin = _position = index;
@@ -261,7 +261,7 @@ namespace System.IO
                 // Only update the capacity if the MS is expandable and the value is different than the current capacity.
                 // Special behavior if the MS isn't expandable: we don't throw if value is the same as the current capacity
                 if (value < Length)
-                    throw new ArgumentOutOfRangeException(nameof(value), SR.ArgumentOutOfRange_SmallCapacity);
+                    ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.value, ExceptionResource.ArgumentOutOfRange_SmallCapacity);
 
                 EnsureNotClosed();
 

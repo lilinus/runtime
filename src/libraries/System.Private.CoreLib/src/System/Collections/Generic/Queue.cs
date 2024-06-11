@@ -98,12 +98,12 @@ namespace System.Collections.Generic
 
             if (arrayIndex < 0 || arrayIndex > array.Length)
             {
-                throw new ArgumentOutOfRangeException(nameof(arrayIndex), arrayIndex, SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.arrayIndex, arrayIndex, ExceptionResource.ArgumentOutOfRange_IndexMustBeLessOrEqual);
             }
 
             if (array.Length - arrayIndex < _size)
             {
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
             }
 
             int numToCopy = _size;
@@ -124,12 +124,12 @@ namespace System.Collections.Generic
 
             if (array.Rank != 1)
             {
-                throw new ArgumentException(SR.Arg_RankMultiDimNotSupported, nameof(array));
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_RankMultiDimNotSupported, ExceptionArgument.array);
             }
 
             if (array.GetLowerBound(0) != 0)
             {
-                throw new ArgumentException(SR.Arg_NonZeroLowerBound, nameof(array));
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_NonZeroLowerBound, ExceptionArgument.array);
             }
 
             int arrayLen = array.Length;
@@ -140,7 +140,7 @@ namespace System.Collections.Generic
 
             if (arrayLen - index < _size)
             {
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
             }
 
             int numToCopy = _size;

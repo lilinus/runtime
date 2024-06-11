@@ -299,7 +299,7 @@ namespace System.IO
             ArgumentOutOfRangeException.ThrowIfNegative(count);
             if (buffer.Length - index < count)
             {
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
             }
             ThrowIfDisposed();
 
@@ -418,7 +418,7 @@ namespace System.IO
             ArgumentOutOfRangeException.ThrowIfNegative(count);
             if (buffer.Length - index < count)
             {
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
             }
             ThrowIfDisposed();
 

@@ -220,7 +220,7 @@ namespace System.Runtime.InteropServices
             ArgumentOutOfRangeException.ThrowIfNegative(index);
             ArgumentOutOfRangeException.ThrowIfNegative(count);
             if (array.Length - index < count)
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
             ReadSpan(byteOffset, new Span<T>(array, index, count));
         }
@@ -307,7 +307,7 @@ namespace System.Runtime.InteropServices
             ArgumentOutOfRangeException.ThrowIfNegative(index);
             ArgumentOutOfRangeException.ThrowIfNegative(count);
             if (array.Length - index < count)
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
             WriteSpan(byteOffset, new ReadOnlySpan<T>(array, index, count));
         }

@@ -75,7 +75,7 @@ namespace System.IO
             ArgumentOutOfRangeException.ThrowIfNegative(count);
             if (buffer.Length - index < count)
             {
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
             }
 
             int n;
@@ -265,7 +265,7 @@ namespace System.IO
             ArgumentOutOfRangeException.ThrowIfNegative(count);
             if (buffer.Length - index < count)
             {
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
             }
 
             return ReadAsyncInternal(new Memory<char>(buffer, index, count), default).AsTask();
@@ -295,7 +295,7 @@ namespace System.IO
             ArgumentOutOfRangeException.ThrowIfNegative(count);
             if (buffer.Length - index < count)
             {
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
             }
 
             return ReadBlockAsyncInternal(new Memory<char>(buffer, index, count), default).AsTask();
@@ -394,7 +394,7 @@ namespace System.IO
                 ArgumentOutOfRangeException.ThrowIfNegative(index);
                 ArgumentOutOfRangeException.ThrowIfNegative(count);
                 if (buffer.Length - index < count)
-                    throw new ArgumentException(SR.Argument_InvalidOffLen);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
                 return Task.FromResult(ReadBlock(buffer, index, count));
             }
@@ -407,7 +407,7 @@ namespace System.IO
                 ArgumentOutOfRangeException.ThrowIfNegative(index);
                 ArgumentOutOfRangeException.ThrowIfNegative(count);
                 if (buffer.Length - index < count)
-                    throw new ArgumentException(SR.Argument_InvalidOffLen);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
                 return Task.FromResult(Read(buffer, index, count));
             }

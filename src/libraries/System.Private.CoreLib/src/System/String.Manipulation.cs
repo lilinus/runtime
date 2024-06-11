@@ -2273,7 +2273,6 @@ namespace System
             }
 
             ArgumentOutOfRangeException.ThrowIfNegative(length);
-
             throw new ArgumentOutOfRangeException(nameof(length), SR.ArgumentOutOfRange_IndexLength);
         }
 

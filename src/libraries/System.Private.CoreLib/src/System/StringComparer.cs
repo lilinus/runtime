@@ -228,7 +228,7 @@ namespace System
 
             if ((options & ValidCompareMaskOffFlags) != 0)
             {
-                throw new ArgumentException(SR.Argument_InvalidFlag, nameof(options));
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidFlag, ExceptionArgument.options);
             }
             _options = options;
         }

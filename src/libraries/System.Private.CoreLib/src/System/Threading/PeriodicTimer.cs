@@ -57,7 +57,7 @@ namespace System.Threading
             if (timeProvider is null)
             {
                 GC.SuppressFinalize(this);
-                throw new ArgumentNullException(nameof(timeProvider));
+                ArgumentNullException.Throw(nameof(timeProvider));
             }
 
             _period = period;
@@ -91,7 +91,7 @@ namespace System.Threading
             {
                 if (!TryGetMilliseconds(value, out _))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value));
+                    ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.value);
                 }
 
                 _period = value;

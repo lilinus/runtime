@@ -1741,7 +1741,7 @@ namespace System
         {
             if (IsNaN(value))
             {
-                throw new ArithmeticException(SR.Arithmetic_NaN);
+                ThrowHelper.ThrowArithmeticException(SR.Arithmetic_NaN);
             }
 
             if (IsZero(value))

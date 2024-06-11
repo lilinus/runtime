@@ -90,7 +90,7 @@ namespace System.Text
             ArgumentOutOfRangeException.ThrowIfNegative(count);
 
             if (chars.Length - index < count)
-                throw new ArgumentOutOfRangeException(nameof(chars), SR.ArgumentOutOfRange_IndexCountBuffer);
+                ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.chars, ExceptionResource.ArgumentOutOfRange_IndexCountBuffer);
 
             // If no input, return 0, avoid fixed empty array problem
             if (count == 0)
@@ -147,10 +147,10 @@ namespace System.Text
             ArgumentOutOfRangeException.ThrowIfNegative(charCount);
 
             if (s.Length - charIndex < charCount)
-                throw new ArgumentOutOfRangeException(nameof(s), SR.ArgumentOutOfRange_IndexCount);
+                ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.s, ExceptionResource.ArgumentOutOfRange_IndexCount);
 
             if (byteIndex < 0 || byteIndex > bytes.Length)
-                throw new ArgumentOutOfRangeException(nameof(byteIndex), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.byteIndex, ExceptionResource.ArgumentOutOfRange_IndexMustBeLessOrEqual);
 
             int byteCount = bytes.Length - byteIndex;
 
@@ -182,10 +182,10 @@ namespace System.Text
             ArgumentOutOfRangeException.ThrowIfNegative(charCount);
 
             if (chars.Length - charIndex < charCount)
-                throw new ArgumentOutOfRangeException(nameof(chars), SR.ArgumentOutOfRange_IndexCountBuffer);
+                ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.chars, ExceptionResource.ArgumentOutOfRange_IndexCountBuffer);
 
             if (byteIndex < 0 || byteIndex > bytes.Length)
-                throw new ArgumentOutOfRangeException(nameof(byteIndex), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.byteIndex, ExceptionResource.ArgumentOutOfRange_IndexMustBeLessOrEqual);
 
             // If nothing to encode return 0, avoid fixed problem
             if (charCount == 0)
@@ -231,7 +231,7 @@ namespace System.Text
             ArgumentOutOfRangeException.ThrowIfNegative(count);
 
             if (bytes.Length - index < count)
-                throw new ArgumentOutOfRangeException(nameof(bytes), SR.ArgumentOutOfRange_IndexCountBuffer);
+                ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.bytes, ExceptionResource.ArgumentOutOfRange_IndexCountBuffer);
 
             // If no input just return 0, fixed doesn't like 0 length arrays
             if (count == 0)
@@ -271,10 +271,10 @@ namespace System.Text
             ArgumentOutOfRangeException.ThrowIfNegative(byteCount);
 
             if (bytes.Length - byteIndex < byteCount)
-                throw new ArgumentOutOfRangeException(nameof(bytes), SR.ArgumentOutOfRange_IndexCountBuffer);
+                ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.bytes, ExceptionResource.ArgumentOutOfRange_IndexCountBuffer);
 
             if (charIndex < 0 || charIndex > chars.Length)
-                throw new ArgumentOutOfRangeException(nameof(charIndex), SR.ArgumentOutOfRange_IndexMustBeLessOrEqual);
+                ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.charIndex, ExceptionResource.ArgumentOutOfRange_IndexMustBeLessOrEqual);
 
             // If no input, return 0 & avoid fixed problem
             if (byteCount == 0)
@@ -320,7 +320,7 @@ namespace System.Text
             ArgumentOutOfRangeException.ThrowIfNegative(count);
 
             if (bytes.Length - index < count)
-                throw new ArgumentOutOfRangeException(nameof(bytes), SR.ArgumentOutOfRange_IndexCountBuffer);
+                ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.bytes, ExceptionResource.ArgumentOutOfRange_IndexCountBuffer);
 
             // Avoid problems with empty input buffer
             if (count == 0) return string.Empty;
@@ -345,7 +345,7 @@ namespace System.Text
             // (If they were all invalid chars, this would actually be wrong,
             // but that's a ridiculously large # so we're not concerned about that case)
             if (byteCount < 0)
-                throw new ArgumentOutOfRangeException(nameof(count), SR.ArgumentOutOfRange_GetByteCountOverflow);
+            throw new ArgumentOutOfRangeException(nameof(count), SR.ArgumentOutOfRange_GetByteCountOverflow);
 
             char* charStart = chars;
             char* charEnd = chars + count;
@@ -1783,7 +1783,7 @@ namespace System.Text
                 charCount *= DecoderFallback.MaxCharCount;
 
             if (charCount > 0x7fffffff)
-                throw new ArgumentOutOfRangeException(nameof(byteCount), SR.ArgumentOutOfRange_GetCharCountOverflow);
+                ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.byteCount, ExceptionResource.ArgumentOutOfRange_GetCharCountOverflow);
 
             return (int)charCount;
         }

@@ -226,12 +226,10 @@ namespace System.Text
             ArgumentOutOfRangeException.ThrowIfNegative(byteCount);
 
             if (chars.Length - charIndex < charCount)
-                throw new ArgumentOutOfRangeException(nameof(chars),
-                      SR.ArgumentOutOfRange_IndexCountBuffer);
+                ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.chars, ExceptionResource.ArgumentOutOfRange_IndexCountBuffer);
 
             if (bytes.Length - byteIndex < byteCount)
-                throw new ArgumentOutOfRangeException(nameof(bytes),
-                      SR.ArgumentOutOfRange_IndexCountBuffer);
+                ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.bytes, ExceptionResource.ArgumentOutOfRange_IndexCountBuffer);
 
             charsUsed = charCount;
 

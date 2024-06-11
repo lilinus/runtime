@@ -47,7 +47,7 @@ namespace System
             nuint uDstOffset = (nuint)dstOffset;
 
             if ((uSrcLen < uSrcOffset + uCount) || (uDstLen < uDstOffset + uCount))
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
             Memmove(ref Unsafe.AddByteOffset(ref MemoryMarshal.GetArrayDataReference(dst), uDstOffset), ref Unsafe.AddByteOffset(ref MemoryMarshal.GetArrayDataReference(src), uSrcOffset), uCount);
         }

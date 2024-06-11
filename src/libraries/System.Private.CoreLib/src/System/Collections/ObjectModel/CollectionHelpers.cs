@@ -13,12 +13,12 @@ namespace System.Collections.ObjectModel
 
             if (array.Rank != 1)
             {
-                throw new ArgumentException(SR.Arg_RankMultiDimNotSupported, nameof(array));
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_RankMultiDimNotSupported, ExceptionArgument.array);
             }
 
             if (array.GetLowerBound(0) != 0)
             {
-                throw new ArgumentException(SR.Arg_NonZeroLowerBound, nameof(array));
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_NonZeroLowerBound, ExceptionArgument.array);
             }
 
             ArgumentOutOfRangeException.ThrowIfNegative(index);
@@ -26,7 +26,7 @@ namespace System.Collections.ObjectModel
 
             if (array.Length - index < sourceCount)
             {
-                throw new ArgumentException(SR.Arg_ArrayPlusOffTooSmall);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_ArrayPlusOffTooSmall);
             }
         }
 

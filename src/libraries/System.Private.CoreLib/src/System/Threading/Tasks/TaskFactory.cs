@@ -1511,7 +1511,7 @@ namespace System.Threading.Tasks
                 if ((creationOptions & TaskCreationOptions.LongRunning) != 0)
                     throw new ArgumentOutOfRangeException(nameof(creationOptions), SR.Task_FromAsync_LongRunning);
                 if ((creationOptions & TaskCreationOptions.PreferFairness) != 0)
-                    throw new ArgumentOutOfRangeException(nameof(creationOptions), SR.Task_FromAsync_PreferFairness);
+                throw new ArgumentOutOfRangeException(nameof(creationOptions), SR.Task_FromAsync_PreferFairness);
             }
 
             // Check for general validity of options
@@ -3029,12 +3029,12 @@ namespace System.Threading.Tasks
                 NotOnAny |
                 TaskContinuationOptions.ExecuteSynchronously)) != 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(continuationOptions));
+                ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.continuationOptions);
             }
 
             // Check that no "fire" options are specified.
             if ((continuationOptions & NotOnAny) != 0)
-                throw new ArgumentOutOfRangeException(nameof(continuationOptions), SR.Task_MultiTaskContinuation_FireOptions);
+            throw new ArgumentOutOfRangeException(nameof(continuationOptions), SR.Task_MultiTaskContinuation_FireOptions);
         }
     }
 }

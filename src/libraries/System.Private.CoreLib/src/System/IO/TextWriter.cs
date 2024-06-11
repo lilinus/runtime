@@ -149,7 +149,7 @@ namespace System.IO
             ArgumentOutOfRangeException.ThrowIfNegative(count);
             if (buffer.Length - index < count)
             {
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
             }
 
             for (int i = 0; i < count; i++) Write(buffer[index + i]);

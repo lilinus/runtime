@@ -318,7 +318,7 @@ namespace System.IO
             ArgumentOutOfRangeException.ThrowIfNegative(count);
             if (array.Length - offset < count)
             {
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
             }
             if (!_isOpen)
             {
@@ -544,7 +544,7 @@ namespace System.IO
             ArgumentOutOfRangeException.ThrowIfNegative(count);
             if (array.Length - offset < count)
             {
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
             }
             ArgumentOutOfRangeException.ThrowIfNegative(position);
             if (position >= Capacity)

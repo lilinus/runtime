@@ -376,7 +376,7 @@ namespace System.IO
             ArgumentOutOfRangeException.ThrowIfNegative(count);
             if (buffer.Length - index < count)
             {
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
             }
 
             WriteSpan(buffer.AsSpan(index, count), appendNewLine: false);
@@ -736,7 +736,7 @@ namespace System.IO
             ArgumentOutOfRangeException.ThrowIfNegative(count);
             if (buffer.Length - index < count)
             {
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
             }
 
             // If we have been inherited into a subclass, the following implementation could be incorrect
@@ -888,7 +888,7 @@ namespace System.IO
             ArgumentOutOfRangeException.ThrowIfNegative(count);
             if (buffer.Length - index < count)
             {
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
             }
 
             // If we have been inherited into a subclass, the following implementation could be incorrect

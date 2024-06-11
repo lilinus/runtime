@@ -192,7 +192,7 @@ namespace System.Collections
             ArgumentOutOfRangeException.ThrowIfNegative(index);
             ArgumentOutOfRangeException.ThrowIfNegative(count);
             if (_size - index < count)
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
             return Array.BinarySearch((Array)_items, index, count, value, comparer);
         }
@@ -249,7 +249,7 @@ namespace System.Collections
         public virtual void CopyTo(Array array, int arrayIndex)
         {
             if ((array != null) && (array.Rank != 1))
-                throw new ArgumentException(SR.Arg_RankMultiDimNotSupported, nameof(array));
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_RankMultiDimNotSupported, ExceptionArgument.array);
 
             // Delegate rest of error checking to Array.Copy.
             Array.Copy(_items, 0, array!, arrayIndex, _size);
@@ -262,9 +262,9 @@ namespace System.Collections
         public virtual void CopyTo(int index, Array array, int arrayIndex, int count)
         {
             if (_size - index < count)
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
             if ((array != null) && (array.Rank != 1))
-                throw new ArgumentException(SR.Arg_RankMultiDimNotSupported, nameof(array));
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_RankMultiDimNotSupported, ExceptionArgument.array);
 
             // Delegate rest of error checking to Array.Copy.
             Array.Copy(_items, index, array!, arrayIndex, count);
@@ -327,7 +327,7 @@ namespace System.Collections
             ArgumentOutOfRangeException.ThrowIfNegative(index);
             ArgumentOutOfRangeException.ThrowIfNegative(count);
             if (_size - index < count)
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
             return new ArrayListEnumerator(this, index, count);
         }
 
@@ -531,7 +531,7 @@ namespace System.Collections
             ArgumentOutOfRangeException.ThrowIfNegative(index);
             ArgumentOutOfRangeException.ThrowIfNegative(count);
             if (_size - index < count)
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
             if (count > 0)
             {
@@ -577,7 +577,7 @@ namespace System.Collections
             ArgumentOutOfRangeException.ThrowIfNegative(index);
             ArgumentOutOfRangeException.ThrowIfNegative(count);
             if (_size - index < count)
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
             Array.Reverse(_items, index, count);
             _version++;
@@ -605,7 +605,7 @@ namespace System.Collections
             ArgumentOutOfRangeException.ThrowIfNegative(index);
             ArgumentOutOfRangeException.ThrowIfNegative(count);
             if (_size - index < count)
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
             return new Range(this, index, count);
         }
 
@@ -636,7 +636,7 @@ namespace System.Collections
             ArgumentOutOfRangeException.ThrowIfNegative(index);
             ArgumentOutOfRangeException.ThrowIfNegative(count);
             if (_size - index < count)
-                throw new ArgumentException(SR.Argument_InvalidOffLen);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
             Array.Sort(_items, index, count, comparer);
             _version++;
@@ -719,7 +719,7 @@ namespace System.Collections
                 get => _list.Count;
                 set
                 {
-                    if (value < Count) throw new ArgumentOutOfRangeException(nameof(value), SR.ArgumentOutOfRange_SmallCapacity);
+                    if (value < Count) ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.value, ExceptionResource.ArgumentOutOfRange_SmallCapacity);
                 }
             }
 
@@ -762,7 +762,7 @@ namespace System.Collections
                 ArgumentOutOfRangeException.ThrowIfNegative(index);
                 ArgumentOutOfRangeException.ThrowIfNegative(count);
                 if (Count - index < count)
-                    throw new ArgumentException(SR.Argument_InvalidOffLen);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
                 comparer ??= Comparer.Default;
 
@@ -823,12 +823,12 @@ namespace System.Collections
                 ArgumentOutOfRangeException.ThrowIfNegative(arrayIndex);
                 ArgumentOutOfRangeException.ThrowIfNegative(count);
                 if (array.Length - arrayIndex < count)
-                    throw new ArgumentException(SR.Argument_InvalidOffLen);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
                 if (array.Rank != 1)
-                    throw new ArgumentException(SR.Arg_RankMultiDimNotSupported, nameof(array));
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_RankMultiDimNotSupported, ExceptionArgument.array);
 
                 if (_list.Count - index < count)
-                    throw new ArgumentException(SR.Argument_InvalidOffLen);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
                 for (int i = index; i < index + count; i++)
                     array.SetValue(_list[i], arrayIndex++);
@@ -845,7 +845,7 @@ namespace System.Collections
                 ArgumentOutOfRangeException.ThrowIfNegative(count);
 
                 if (_list.Count - index < count)
-                    throw new ArgumentException(SR.Argument_InvalidOffLen);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
                 return new IListWrapperEnumWrapper(this, index, count);
             }
@@ -969,7 +969,7 @@ namespace System.Collections
                 ArgumentOutOfRangeException.ThrowIfNegative(count);
 
                 if (_list.Count - index < count)
-                    throw new ArgumentException(SR.Argument_InvalidOffLen);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
                 if (count > 0)    // be consistent with ArrayList
                     _version++;
@@ -987,7 +987,7 @@ namespace System.Collections
                 ArgumentOutOfRangeException.ThrowIfNegative(count);
 
                 if (_list.Count - index < count)
-                    throw new ArgumentException(SR.Argument_InvalidOffLen);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
                 int i = index;
                 int j = index + count - 1;
@@ -1025,7 +1025,7 @@ namespace System.Collections
                 ArgumentOutOfRangeException.ThrowIfNegative(index);
                 ArgumentOutOfRangeException.ThrowIfNegative(count);
                 if (_list.Count - index < count)
-                    throw new ArgumentException(SR.Argument_InvalidOffLen);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
                 return new Range(this, index, count);
             }
 
@@ -1034,7 +1034,7 @@ namespace System.Collections
                 ArgumentOutOfRangeException.ThrowIfNegative(index);
                 ArgumentOutOfRangeException.ThrowIfNegative(count);
                 if (_list.Count - index < count)
-                    throw new ArgumentException(SR.Argument_InvalidOffLen);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
                 object[] array = new object[count];
                 CopyTo(index, array, 0, count);
@@ -1810,7 +1810,7 @@ namespace System.Collections
                 ArgumentOutOfRangeException.ThrowIfNegative(index);
                 ArgumentOutOfRangeException.ThrowIfNegative(count);
                 if (Count - index < count)
-                    throw new ArgumentException(SR.Argument_InvalidOffLen);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
                 return new Range(this, index, count);
             }
@@ -2064,7 +2064,7 @@ namespace System.Collections
                 ArgumentOutOfRangeException.ThrowIfNegative(index);
                 ArgumentOutOfRangeException.ThrowIfNegative(count);
                 if (Count - index < count)
-                    throw new ArgumentException(SR.Argument_InvalidOffLen);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
                 return new Range(this, index, count);
             }
@@ -2216,7 +2216,7 @@ namespace System.Collections
                 ArgumentOutOfRangeException.ThrowIfNegative(index);
                 ArgumentOutOfRangeException.ThrowIfNegative(count);
                 if (_baseSize - index < count)
-                    throw new ArgumentException(SR.Argument_InvalidOffLen);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
                 InternalUpdateRange();
 
@@ -2231,7 +2231,7 @@ namespace System.Collections
 
                 set
                 {
-                    if (value < Count) throw new ArgumentOutOfRangeException(nameof(value), SR.ArgumentOutOfRange_SmallCapacity);
+                    if (value < Count) ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.value, ExceptionResource.ArgumentOutOfRange_SmallCapacity);
                 }
             }
 
@@ -2279,10 +2279,10 @@ namespace System.Collections
                 ArgumentNullException.ThrowIfNull(array);
 
                 if (array.Rank != 1)
-                    throw new ArgumentException(SR.Arg_RankMultiDimNotSupported, nameof(array));
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_RankMultiDimNotSupported, ExceptionArgument.array);
                 ArgumentOutOfRangeException.ThrowIfNegative(index);
                 if (array.Length - index < _baseSize)
-                    throw new ArgumentException(SR.Argument_InvalidOffLen);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
                 InternalUpdateRange();
                 _baseList.CopyTo(_baseIndex, array, index, _baseSize);
@@ -2293,13 +2293,13 @@ namespace System.Collections
                 ArgumentNullException.ThrowIfNull(array);
 
                 if (array.Rank != 1)
-                    throw new ArgumentException(SR.Arg_RankMultiDimNotSupported, nameof(array));
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_RankMultiDimNotSupported, ExceptionArgument.array);
                 ArgumentOutOfRangeException.ThrowIfNegative(index);
                 ArgumentOutOfRangeException.ThrowIfNegative(count);
                 if (array.Length - arrayIndex < count)
-                    throw new ArgumentException(SR.Argument_InvalidOffLen);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
                 if (_baseSize - index < count)
-                    throw new ArgumentException(SR.Argument_InvalidOffLen);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
                 InternalUpdateRange();
                 _baseList.CopyTo(_baseIndex + index, array, arrayIndex, count);
@@ -2330,7 +2330,7 @@ namespace System.Collections
                 ArgumentOutOfRangeException.ThrowIfNegative(index);
                 ArgumentOutOfRangeException.ThrowIfNegative(count);
                 if (_baseSize - index < count)
-                    throw new ArgumentException(SR.Argument_InvalidOffLen);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
                 InternalUpdateRange();
                 return _baseList.GetEnumerator(_baseIndex + index, count);
@@ -2341,7 +2341,7 @@ namespace System.Collections
                 ArgumentOutOfRangeException.ThrowIfNegative(index);
                 ArgumentOutOfRangeException.ThrowIfNegative(count);
                 if (_baseSize - index < count)
-                    throw new ArgumentException(SR.Argument_InvalidOffLen);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
                 InternalUpdateRange();
                 return new Range(this, index, count);
@@ -2454,7 +2454,7 @@ namespace System.Collections
                 ArgumentOutOfRangeException.ThrowIfNegative(index);
                 ArgumentOutOfRangeException.ThrowIfNegative(count);
                 if (_baseSize - index < count)
-                    throw new ArgumentException(SR.Argument_InvalidOffLen);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
                 InternalUpdateRange();
                 // No need to call _bastList.RemoveRange if count is 0.
@@ -2472,7 +2472,7 @@ namespace System.Collections
                 ArgumentOutOfRangeException.ThrowIfNegative(index);
                 ArgumentOutOfRangeException.ThrowIfNegative(count);
                 if (_baseSize - index < count)
-                    throw new ArgumentException(SR.Argument_InvalidOffLen);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
                 InternalUpdateRange();
                 _baseList.Reverse(_baseIndex + index, count);
@@ -2495,7 +2495,7 @@ namespace System.Collections
                 ArgumentOutOfRangeException.ThrowIfNegative(index);
                 ArgumentOutOfRangeException.ThrowIfNegative(count);
                 if (_baseSize - index < count)
-                    throw new ArgumentException(SR.Argument_InvalidOffLen);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_InvalidOffLen);
 
                 InternalUpdateRange();
                 _baseList.Sort(_baseIndex + index, count, comparer);

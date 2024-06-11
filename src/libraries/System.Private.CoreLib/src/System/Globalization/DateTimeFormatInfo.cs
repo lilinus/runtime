@@ -632,10 +632,7 @@ namespace System.Globalization
 
                 if (value < DayOfWeek.Sunday || value > DayOfWeek.Saturday)
                 {
-                    throw new ArgumentOutOfRangeException(
-                        nameof(value),
-                        value,
-                        SR.Format(SR.ArgumentOutOfRange_Range, DayOfWeek.Sunday, DayOfWeek.Saturday));
+                    ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(value), value, DayOfWeek.Sunday, DayOfWeek.Saturday);
                 }
 
                 firstDayOfWeek = (int)value;
@@ -662,10 +659,7 @@ namespace System.Globalization
                 }
                 if (value < CalendarWeekRule.FirstDay || value > CalendarWeekRule.FirstFourDayWeek)
                 {
-                    throw new ArgumentOutOfRangeException(
-                        nameof(value),
-                        value,
-                        SR.Format(SR.ArgumentOutOfRange_Range, CalendarWeekRule.FirstDay, CalendarWeekRule.FirstFourDayWeek));
+                    ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(value), value, CalendarWeekRule.FirstDay, CalendarWeekRule.FirstFourDayWeek);
                 }
 
                 calendarWeekRule = (int)value;

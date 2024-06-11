@@ -574,10 +574,10 @@ namespace System.Collections
             ArgumentNullException.ThrowIfNull(array);
 
             if (array.Rank != 1)
-                throw new ArgumentException(SR.Arg_RankMultiDimNotSupported, nameof(array));
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Rank_MultiDimNotSupported, ExceptionArgument.array);
             ArgumentOutOfRangeException.ThrowIfNegative(arrayIndex);
             if (array.Length - arrayIndex < Count)
-                throw new ArgumentException(SR.Arg_ArrayPlusOffTooSmall);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_ArrayPlusOffTooSmall);
 
             CopyEntries(array, arrayIndex);
         }
@@ -1191,10 +1191,10 @@ namespace System.Collections
                 ArgumentNullException.ThrowIfNull(array);
 
                 if (array.Rank != 1)
-                    throw new ArgumentException(SR.Arg_RankMultiDimNotSupported, nameof(array));
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_RankMultiDimNotSupported, ExceptionArgument.array);
                 ArgumentOutOfRangeException.ThrowIfNegative(arrayIndex);
                 if (array.Length - arrayIndex < _hashtable._count)
-                    throw new ArgumentException(SR.Arg_ArrayPlusOffTooSmall);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_ArrayPlusOffTooSmall);
                 _hashtable.CopyKeys(array, arrayIndex);
             }
 
@@ -1226,10 +1226,10 @@ namespace System.Collections
                 ArgumentNullException.ThrowIfNull(array);
 
                 if (array.Rank != 1)
-                    throw new ArgumentException(SR.Arg_RankMultiDimNotSupported, nameof(array));
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Rank_MultiDimNotSupported, ExceptionArgument.array);
                 ArgumentOutOfRangeException.ThrowIfNegative(arrayIndex);
                 if (array.Length - arrayIndex < _hashtable._count)
-                    throw new ArgumentException(SR.Arg_ArrayPlusOffTooSmall);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_ArrayPlusOffTooSmall);
                 _hashtable.CopyValues(array, arrayIndex);
             }
 

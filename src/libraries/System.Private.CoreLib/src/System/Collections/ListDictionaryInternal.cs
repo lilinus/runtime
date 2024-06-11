@@ -150,12 +150,12 @@ namespace System.Collections
             ArgumentNullException.ThrowIfNull(array);
 
             if (array.Rank != 1)
-                throw new ArgumentException(SR.Arg_RankMultiDimNotSupported);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_RankMultiDimNotSupported);
 
             ArgumentOutOfRangeException.ThrowIfNegative(index);
 
             if (array.Length - index < this.Count)
-                throw new ArgumentException(SR.ArgumentOutOfRange_IndexMustBeLessOrEqual, nameof(index));
+                ThrowHelper.ThrowArgumentException(ExceptionResource.ArgumentOutOfRange_IndexMustBeLessOrEqual, ExceptionArgument.index);
 
             for (DictionaryNode? node = head; node != null; node = node.next)
             {
@@ -305,10 +305,10 @@ namespace System.Collections
                 ArgumentNullException.ThrowIfNull(array);
 
                 if (array.Rank != 1)
-                    throw new ArgumentException(SR.Arg_RankMultiDimNotSupported);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_RankMultiDimNotSupported);
                 ArgumentOutOfRangeException.ThrowIfNegative(index);
                 if (array.Length - index < list.Count)
-                    throw new ArgumentException(SR.ArgumentOutOfRange_IndexMustBeLessOrEqual, nameof(index));
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.ArgumentOutOfRange_IndexMustBeLessOrEqual, ExceptionArgument.index);
                 for (DictionaryNode? node = list.head; node != null; node = node.next)
                 {
                     array.SetValue(isKeys ? node.key : node.value, index);
