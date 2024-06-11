@@ -1088,8 +1088,8 @@ namespace System.Resources
             {
                 get
                 {
-                    if (_currentName == ENUM_DONE) ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumEnded();
-                    if (!_currentIsValid) ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumNotStarted();
+                    if (_currentName == ENUM_DONE) throw new InvalidOperationException(SR.InvalidOperation_EnumEnded);
+                    if (!_currentIsValid) throw new InvalidOperationException(SR.InvalidOperation_EnumNotStarted);
                     if (_reader._resCache == null) throw new InvalidOperationException(SR.ResourceReaderIsClosed);
 
                     return _reader.AllocateStringForNameIndex(_currentName, out _dataPosition);
@@ -1105,8 +1105,8 @@ namespace System.Resources
             {
                 get
                 {
-                    if (_currentName == ENUM_DONE) ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumEnded();
-                    if (!_currentIsValid) ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumNotStarted();
+                    if (_currentName == ENUM_DONE) throw new InvalidOperationException(SR.InvalidOperation_EnumEnded);
+                    if (!_currentIsValid) throw new InvalidOperationException(SR.InvalidOperation_EnumNotStarted);
                     if (_reader._resCache == null) throw new InvalidOperationException(SR.ResourceReaderIsClosed);
 
                     string key = _reader.AllocateStringForNameIndex(_currentName, out _dataPosition); // AllocateStringForNameIndex could lock on _reader
@@ -1142,8 +1142,8 @@ namespace System.Resources
             {
                 get
                 {
-                    if (_currentName == ENUM_DONE) ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumEnded();
-                    if (!_currentIsValid) ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumNotStarted();
+                    if (_currentName == ENUM_DONE) throw new InvalidOperationException(SR.InvalidOperation_EnumEnded);
+                    if (!_currentIsValid) throw new InvalidOperationException(SR.InvalidOperation_EnumNotStarted);
                     if (_reader._resCache == null) throw new InvalidOperationException(SR.ResourceReaderIsClosed);
 
                     // Consider using _resCache here, eventually, if

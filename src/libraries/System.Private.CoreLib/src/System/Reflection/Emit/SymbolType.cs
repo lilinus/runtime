@@ -289,7 +289,7 @@ namespace System.Reflection.Emit
         {
             if (rank <= 0)
             {
-                ThrowHelper.ThrowIndexOutOfRangeException();
+                throw new IndexOutOfRangeException();
             }
 
             return rank == 1 ? "[*]" : "[" + new string(',', rank - 1) + "]";
