@@ -642,7 +642,7 @@ namespace System
             {
                 if (absValue < 0)
                 {
-                    Math.ThrowNegateTwosCompOverflow();
+                    ThrowHelper.ThrowOverflowException_NegateTwosCompNum();
                 }
 
                 return absValue;

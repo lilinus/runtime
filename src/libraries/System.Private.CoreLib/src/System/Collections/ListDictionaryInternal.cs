@@ -227,7 +227,7 @@ namespace System.Collections
                 {
                     if (current == null)
                     {
-                        throw new InvalidOperationException(SR.InvalidOperation_EnumOpCantHappen);
+                        ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumOpCantHappen();
                     }
                     return new DictionaryEntry(current.key, current.value);
                 }
@@ -239,7 +239,7 @@ namespace System.Collections
                 {
                     if (current == null)
                     {
-                        throw new InvalidOperationException(SR.InvalidOperation_EnumOpCantHappen);
+                        ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumOpCantHappen();
                     }
                     return current.key;
                 }
@@ -251,7 +251,7 @@ namespace System.Collections
                 {
                     if (current == null)
                     {
-                        throw new InvalidOperationException(SR.InvalidOperation_EnumOpCantHappen);
+                        ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumOpCantHappen();
                     }
                     return current.value;
                 }
@@ -261,7 +261,7 @@ namespace System.Collections
             {
                 if (version != list.version)
                 {
-                    throw new InvalidOperationException(SR.InvalidOperation_EnumFailedVersion);
+                    ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumFailedVersion();
                 }
                 if (start)
                 {
@@ -282,7 +282,7 @@ namespace System.Collections
             {
                 if (version != list.version)
                 {
-                    throw new InvalidOperationException(SR.InvalidOperation_EnumFailedVersion);
+                    ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumFailedVersion();
                 }
                 start = true;
                 current = null;
@@ -361,7 +361,7 @@ namespace System.Collections
                     {
                         if (current == null)
                         {
-                            throw new InvalidOperationException(SR.InvalidOperation_EnumOpCantHappen);
+                            ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumOpCantHappen();
                         }
                         return isKeys ? current.key : current.value;
                     }
@@ -371,7 +371,7 @@ namespace System.Collections
                 {
                     if (version != list.version)
                     {
-                        throw new InvalidOperationException(SR.InvalidOperation_EnumFailedVersion);
+                        ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumFailedVersion();
                     }
                     if (start)
                     {
@@ -392,7 +392,7 @@ namespace System.Collections
                 {
                     if (version != list.version)
                     {
-                        throw new InvalidOperationException(SR.InvalidOperation_EnumFailedVersion);
+                        ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumFailedVersion();
                     }
                     start = true;
                     current = null;

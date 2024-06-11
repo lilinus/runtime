@@ -4552,7 +4552,7 @@ namespace System.Diagnostics.Tracing
         public bool EnableEvent(int eventId)
         {
             if (Command != EventCommand.Enable && Command != EventCommand.Disable)
-                throw new InvalidOperationException();
+                ThrowHelper.ThrowInvalidOperationException();
             return eventSource.EnableEventForDispatcher(dispatcher, eventProviderType, eventId, true);
         }
 
@@ -4564,7 +4564,7 @@ namespace System.Diagnostics.Tracing
         public bool DisableEvent(int eventId)
         {
             if (Command != EventCommand.Enable && Command != EventCommand.Disable)
-                throw new InvalidOperationException();
+                ThrowHelper.ThrowInvalidOperationException();
             return eventSource.EnableEventForDispatcher(dispatcher, eventProviderType, eventId, false);
         }
 

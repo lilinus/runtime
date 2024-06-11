@@ -80,7 +80,7 @@ namespace System.Diagnostics.Tracing
             {
                 // Unable to create the provider.
                 _gcHandle.Free();
-                throw new OutOfMemoryException();
+                ThrowHelper.ThrowOutOfMemoryException();
             }
         }
 

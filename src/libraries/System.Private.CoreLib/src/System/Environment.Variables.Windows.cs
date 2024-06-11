@@ -84,7 +84,7 @@ namespace System
             char* stringPtr = Interop.Kernel32.GetEnvironmentStringsW();
             if (stringPtr == null)
             {
-                throw new OutOfMemoryException();
+                ThrowHelper.ThrowOutOfMemoryException();
             }
 
             try

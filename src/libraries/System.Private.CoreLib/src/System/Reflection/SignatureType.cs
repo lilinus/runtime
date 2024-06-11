@@ -43,7 +43,7 @@ namespace System.Reflection
         public sealed override Type MakeArrayType(int rank)
         {
             if (rank <= 0)
-                throw new IndexOutOfRangeException();
+                ThrowHelper.ThrowIndexOutOfRangeException();
             return new SignatureArrayType(this, rank: rank, isMultiDim: true);
         }
         public sealed override Type MakeByRefType() => new SignatureByRefType(this);

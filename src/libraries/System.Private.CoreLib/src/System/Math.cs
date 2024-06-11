@@ -52,7 +52,7 @@ namespace System
                 value = (short)-value;
                 if (value < 0)
                 {
-                    ThrowNegateTwosCompOverflow();
+                    ThrowHelper.ThrowOverflowException_NegateTwosCompNum();
                 }
             }
             return value;
@@ -66,7 +66,7 @@ namespace System
                 value = -value;
                 if (value < 0)
                 {
-                    ThrowNegateTwosCompOverflow();
+                    ThrowHelper.ThrowOverflowException_NegateTwosCompNum();
                 }
             }
             return value;
@@ -80,7 +80,7 @@ namespace System
                 value = -value;
                 if (value < 0)
                 {
-                    ThrowNegateTwosCompOverflow();
+                    ThrowHelper.ThrowOverflowException_NegateTwosCompNum();
                 }
             }
             return value;
@@ -97,7 +97,7 @@ namespace System
                 value = -value;
                 if (value < 0)
                 {
-                    ThrowNegateTwosCompOverflow();
+                    ThrowHelper.ThrowOverflowException_NegateTwosCompNum();
                 }
             }
             return value;
@@ -112,7 +112,7 @@ namespace System
                 value = (sbyte)-value;
                 if (value < 0)
                 {
-                    ThrowNegateTwosCompOverflow();
+                    ThrowHelper.ThrowOverflowException_NegateTwosCompNum();
                 }
             }
             return value;
@@ -142,13 +142,6 @@ namespace System
             uint raw = BitConverter.SingleToUInt32Bits(value);
 
             return BitConverter.UInt32BitsToSingle(raw & mask);
-        }
-
-        [DoesNotReturn]
-        [StackTraceHidden]
-        internal static void ThrowNegateTwosCompOverflow()
-        {
-            throw new OverflowException(SR.Overflow_NegateTwosCompNum);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

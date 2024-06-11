@@ -64,7 +64,7 @@ namespace System.IO
 
         void IEnumerator.Reset()
         {
-            throw new NotSupportedException();
+            ThrowHelper.ThrowNotSupportedException();
         }
     }
 }

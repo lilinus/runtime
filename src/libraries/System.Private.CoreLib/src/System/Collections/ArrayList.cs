@@ -1122,9 +1122,9 @@ namespace System.Collections
                     get
                     {
                         if (_firstCall)
-                            throw new InvalidOperationException(SR.InvalidOperation_EnumNotStarted);
+                            ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumNotStarted();
                         if (_remaining < 0)
-                            throw new InvalidOperationException(SR.InvalidOperation_EnumEnded);
+                            ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumEnded();
                         return _en.Current;
                     }
                 }
@@ -2123,7 +2123,7 @@ namespace System.Collections
 
             public bool MoveNext()
             {
-                if (_version != _list._version) throw new InvalidOperationException(SR.InvalidOperation_EnumFailedVersion);
+                if (_version != _list._version) ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumFailedVersion();
                 if (_index < _endIndex)
                 {
                     _currentElement = _list[++_index];
@@ -2142,10 +2142,10 @@ namespace System.Collections
                 get
                 {
                     if (_index < _startIndex)
-                        throw new InvalidOperationException(SR.InvalidOperation_EnumNotStarted);
+                        ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumNotStarted();
                     else if (_index > _endIndex)
                     {
-                        throw new InvalidOperationException(SR.InvalidOperation_EnumEnded);
+                        ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumEnded();
                     }
                     return _currentElement;
                 }
@@ -2153,7 +2153,7 @@ namespace System.Collections
 
             public void Reset()
             {
-                if (_version != _list._version) throw new InvalidOperationException(SR.InvalidOperation_EnumFailedVersion);
+                if (_version != _list._version) ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumFailedVersion();
                 _index = _startIndex - 1;
             }
         }
@@ -2571,7 +2571,7 @@ namespace System.Collections
             {
                 if (_version != _list._version)
                 {
-                    throw new InvalidOperationException(SR.InvalidOperation_EnumFailedVersion);
+                    ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumFailedVersion();
                 }
 
                 if (_isArrayList)
@@ -2613,11 +2613,11 @@ namespace System.Collections
                     { // check if enumeration has not started or has terminated
                         if (_index == -1)
                         {
-                            throw new InvalidOperationException(SR.InvalidOperation_EnumNotStarted);
+                            ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumNotStarted();
                         }
                         else
                         {
-                            throw new InvalidOperationException(SR.InvalidOperation_EnumEnded);
+                            ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumEnded();
                         }
                     }
 
@@ -2629,7 +2629,7 @@ namespace System.Collections
             {
                 if (_version != _list._version)
                 {
-                    throw new InvalidOperationException(SR.InvalidOperation_EnumFailedVersion);
+                    ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumFailedVersion();
                 }
 
                 _currentElement = s_dummyObject;

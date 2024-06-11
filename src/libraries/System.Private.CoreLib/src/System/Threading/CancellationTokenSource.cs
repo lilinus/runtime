@@ -832,7 +832,7 @@ namespace System.Threading
             if (exceptionList != null)
             {
                 Debug.Assert(exceptionList.Count > 0, $"Expected {exceptionList.Count} > 0");
-                throw new AggregateException(exceptionList);
+                ThrowHelper.ThrowAggregateException(exceptionList);
             }
         }
 

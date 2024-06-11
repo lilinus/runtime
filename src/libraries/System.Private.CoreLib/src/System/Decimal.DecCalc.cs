@@ -1895,7 +1895,7 @@ ReturnZero:
                     //
                     uint den = d2.Low;
                     if (den == 0)
-                        throw new DivideByZeroException();
+                        ThrowHelper.ThrowDivideByZeroException();
 
                     bufQuo.Low64 = d1.Low64;
                     bufQuo.U2 = d1.High;
@@ -2154,7 +2154,7 @@ ThrowOverflow:
             internal static void VarDecMod(ref DecCalc d1, ref DecCalc d2)
             {
                 if ((d2.ulo | d2.umid | d2.uhi) == 0)
-                    throw new DivideByZeroException();
+                    ThrowHelper.ThrowDivideByZeroException();
 
                 if ((d1.ulo | d1.umid | d1.uhi) == 0)
                     return;

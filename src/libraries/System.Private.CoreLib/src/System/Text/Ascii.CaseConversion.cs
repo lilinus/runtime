@@ -496,7 +496,7 @@ namespace System.Text
             else
             {
                 Debug.Fail("Unknown types.");
-                throw new NotSupportedException();
+                ThrowHelper.ThrowNotSupportedException();
             }
         }
 
@@ -514,7 +514,7 @@ namespace System.Text
             }
             else
             {
-                throw new NotSupportedException();
+                ThrowHelper.ThrowNotSupportedException();
             }
         }
 

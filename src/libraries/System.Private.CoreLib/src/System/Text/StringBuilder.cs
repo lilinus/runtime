@@ -455,14 +455,14 @@ namespace System.Text
                     {
                         if (indexInBlock >= chunk.m_ChunkLength)
                         {
-                            throw new IndexOutOfRangeException();
+                            ThrowHelper.ThrowIndexOutOfRangeException();
                         }
                         return chunk.m_ChunkChars[indexInBlock];
                     }
                     chunk = chunk.m_ChunkPrevious;
                     if (chunk == null)
                     {
-                        throw new IndexOutOfRangeException();
+                        ThrowHelper.ThrowIndexOutOfRangeException();
                     }
                 }
             }
@@ -951,7 +951,7 @@ namespace System.Text
             long insertingChars = (long)value.Length * count;
             if (insertingChars > MaxCapacity - this.Length)
             {
-                throw new OutOfMemoryException();
+                ThrowHelper.ThrowOutOfMemoryException();
             }
             Debug.Assert(insertingChars + this.Length < int.MaxValue);
 
@@ -2362,7 +2362,7 @@ namespace System.Text
             int delta = (int)longDelta;
             if (delta != longDelta)
             {
-                throw new OutOfMemoryException();
+                ThrowHelper.ThrowOutOfMemoryException();
             }
 
             StringBuilder targetChunk = sourceChunk;        // the target as we copy chars down
@@ -2563,7 +2563,7 @@ namespace System.Text
             // Check for integer overflow (logical buffer size > int.MaxValue)
             if (m_ChunkOffset + m_ChunkLength + newBlockLength < newBlockLength)
             {
-                throw new OutOfMemoryException();
+                ThrowHelper.ThrowOutOfMemoryException();
             }
 
             // Allocate the array before updating any state to avoid leaving inconsistent state behind in case of out of memory exception

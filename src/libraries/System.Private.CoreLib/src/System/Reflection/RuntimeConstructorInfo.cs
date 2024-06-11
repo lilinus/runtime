@@ -63,11 +63,11 @@ namespace System.Reflection
 
             // ctor is on a class that contains stack pointers
             else if (declaringType.GetRootElementType() == typeof(ArgIterator))
-                throw new NotSupportedException();
+                ThrowHelper.ThrowNotSupportedException();
 
             // ctor is vararg
             else if (isVarArg)
-                throw new NotSupportedException();
+                ThrowHelper.ThrowNotSupportedException();
 
             // ctor is generic or on a generic class
             else if (declaringType.ContainsGenericParameters)

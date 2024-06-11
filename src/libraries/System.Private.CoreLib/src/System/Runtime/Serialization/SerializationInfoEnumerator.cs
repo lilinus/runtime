@@ -76,7 +76,7 @@ namespace System.Runtime.Serialization
             {
                 if (!_current)
                 {
-                    throw new InvalidOperationException(SR.InvalidOperation_EnumOpCantHappen);
+                    ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumOpCantHappen();
                 }
                 return new SerializationEntry(_members[_currItem], _data[_currItem], _types[_currItem]);
             }
@@ -94,7 +94,7 @@ namespace System.Runtime.Serialization
             {
                 if (!_current)
                 {
-                    throw new InvalidOperationException(SR.InvalidOperation_EnumOpCantHappen);
+                    ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumOpCantHappen();
                 }
                 return _members[_currItem];
             }
@@ -105,7 +105,7 @@ namespace System.Runtime.Serialization
             {
                 if (!_current)
                 {
-                    throw new InvalidOperationException(SR.InvalidOperation_EnumOpCantHappen);
+                    ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumOpCantHappen();
                 }
                 return _data[_currItem];
             }
@@ -116,7 +116,7 @@ namespace System.Runtime.Serialization
             {
                 if (!_current)
                 {
-                    throw new InvalidOperationException(SR.InvalidOperation_EnumOpCantHappen);
+                    ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumOpCantHappen();
                 }
                 return _types[_currItem];
             }

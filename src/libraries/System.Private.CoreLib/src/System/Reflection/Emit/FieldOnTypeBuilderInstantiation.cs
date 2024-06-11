@@ -67,7 +67,7 @@ namespace System.Reflection.Emit
         public override RuntimeFieldHandle FieldHandle => throw new NotImplementedException();
         public override Type FieldType => _field.FieldType;
         public override object GetValue(object? obj) { throw new InvalidOperationException(); }
-        public override void SetValue(object? obj, object? value, BindingFlags invokeAttr, Binder? binder, CultureInfo? culture) { throw new InvalidOperationException(); }
+        public override void SetValue(object? obj, object? value, BindingFlags invokeAttr, Binder? binder, CultureInfo? culture) { ThrowHelper.ThrowInvalidOperationException(); }
         public override FieldAttributes Attributes => _field.Attributes;
         #endregion
 

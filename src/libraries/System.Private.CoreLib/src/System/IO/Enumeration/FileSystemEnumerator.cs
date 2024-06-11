@@ -97,7 +97,7 @@ namespace System.IO.Enumeration
         /// <summary>Always throws <see cref="NotSupportedException" />.</summary>
         public void Reset()
         {
-            throw new NotSupportedException();
+            ThrowHelper.ThrowNotSupportedException();
         }
 
         /// <summary>Releases the resources used by the current instance of the <see cref="FileSystemEnumerator{T}" /> class.</summary>

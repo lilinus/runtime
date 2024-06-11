@@ -1263,7 +1263,7 @@ namespace System
             {
                 if (IsNegative(absValue))
                 {
-                    Math.ThrowNegateTwosCompOverflow();
+                    ThrowHelper.ThrowOverflowException_NegateTwosCompNum();
                 }
                 return absValue;
             }
@@ -1321,7 +1321,7 @@ namespace System
 
                 if (IsNegative(value))
                 {
-                    Math.ThrowNegateTwosCompOverflow();
+                    ThrowHelper.ThrowOverflowException_NegateTwosCompNum();
                 }
             }
             return value;

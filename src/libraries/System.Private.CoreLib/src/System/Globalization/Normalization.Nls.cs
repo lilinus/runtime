@@ -44,7 +44,7 @@ namespace System.Globalization
                     throw new ArgumentException(SR.Argument_InvalidCharSequenceNoIndex, nameof(strInput));
 
                 case Interop.Errors.ERROR_NOT_ENOUGH_MEMORY:
-                    throw new OutOfMemoryException();
+                    ThrowHelper.ThrowOutOfMemoryException();
 
                 default:
                     throw new InvalidOperationException(SR.Format(SR.UnknownError_Num, lastError));
@@ -123,7 +123,7 @@ namespace System.Globalization
                             throw new ArgumentException(SR.Argument_InvalidCharSequenceNoIndex, nameof(strInput));
 
                         case Interop.Errors.ERROR_NOT_ENOUGH_MEMORY:
-                            throw new OutOfMemoryException();
+                            ThrowHelper.ThrowOutOfMemoryException();
 
                         default:
                             // We shouldn't get here...

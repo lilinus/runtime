@@ -14,7 +14,7 @@ namespace System.Threading
             _nativeMonitor = Interop.Sys.LowLevelMonitor_Create();
             if (_nativeMonitor == IntPtr.Zero)
             {
-                throw new OutOfMemoryException();
+                ThrowHelper.ThrowOutOfMemoryException();
             }
         }
 

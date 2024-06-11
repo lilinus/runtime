@@ -137,7 +137,7 @@ namespace System.Reflection
         internal static string GetRankString(int rank)
         {
             if (rank <= 0)
-                throw new IndexOutOfRangeException();
+                ThrowHelper.ThrowIndexOutOfRangeException();
 
             return rank == 1 ?
                 "[*]" :

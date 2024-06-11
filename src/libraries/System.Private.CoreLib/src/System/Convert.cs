@@ -2628,7 +2628,7 @@ namespace System
             // If we overflow an int then we cannot allocate enough
             // memory to output the value so throw
             if (outlen > int.MaxValue)
-                throw new OutOfMemoryException();
+                ThrowHelper.ThrowOutOfMemoryException();
 
             return (int)outlen;
         }

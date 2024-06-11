@@ -43,22 +43,22 @@ namespace System.Diagnostics.Tracing
 
                 throw new KeyNotFoundException(SR.Format(SR.Arg_KeyNotFoundWithKey, key));
             }
-            set => throw new NotSupportedException();
+            set => ThrowHelper.ThrowNotSupportedException();
         }
 
         public void Add(string key, object? value)
         {
-            throw new NotSupportedException();
+            ThrowHelper.ThrowNotSupportedException();
         }
 
         public void Add(KeyValuePair<string, object?> payloadEntry)
         {
-            throw new NotSupportedException();
+            ThrowHelper.ThrowNotSupportedException();
         }
 
         public void Clear()
         {
-            throw new NotSupportedException();
+            ThrowHelper.ThrowNotSupportedException();
         }
 
         public bool Contains(KeyValuePair<string, object?> entry)
@@ -94,7 +94,7 @@ namespace System.Diagnostics.Tracing
 
         public void CopyTo(KeyValuePair<string, object?>[] payloadEntries, int count)
         {
-            throw new NotSupportedException();
+            ThrowHelper.ThrowNotSupportedException();
         }
 
         public bool Remove(string key)

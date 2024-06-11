@@ -192,7 +192,7 @@ namespace System.Reflection
                             throw new InvalidOperationException(SR.Arg_UnboundGenField);
 
                         if (_fieldInfo.DeclaringType is not null && ((RuntimeType)_fieldInfo.FieldType).IsNullableOfT)
-                            throw new NotSupportedException();
+                            ThrowHelper.ThrowNotSupportedException();
 
                         throw new FieldAccessException();
 

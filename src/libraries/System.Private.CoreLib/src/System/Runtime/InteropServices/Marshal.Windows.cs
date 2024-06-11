@@ -131,7 +131,7 @@ namespace System.Runtime.InteropServices
             void* pNewMem = Interop.Kernel32.LocalAlloc((nuint)cb);
             if (pNewMem is null)
             {
-                throw new OutOfMemoryException();
+                ThrowHelper.ThrowOutOfMemoryException();
             }
             return (nint)pNewMem;
         }
@@ -156,7 +156,7 @@ namespace System.Runtime.InteropServices
             void* pNewMem = Interop.Kernel32.LocalReAlloc((void*)pv, (nuint)cb);
             if (pNewMem is null)
             {
-                throw new OutOfMemoryException();
+                ThrowHelper.ThrowOutOfMemoryException();
             }
             return (nint)pNewMem;
         }
@@ -166,7 +166,7 @@ namespace System.Runtime.InteropServices
             IntPtr pNewMem = Interop.Ole32.CoTaskMemAlloc((uint)cb);
             if (pNewMem == IntPtr.Zero)
             {
-                throw new OutOfMemoryException();
+                ThrowHelper.ThrowOutOfMemoryException();
             }
             return pNewMem;
         }
@@ -184,7 +184,7 @@ namespace System.Runtime.InteropServices
             IntPtr pNewMem = Interop.Ole32.CoTaskMemRealloc(pv, (uint)cb);
             if (pNewMem == IntPtr.Zero && cb != 0)
             {
-                throw new OutOfMemoryException();
+                ThrowHelper.ThrowOutOfMemoryException();
             }
             return pNewMem;
         }
@@ -194,7 +194,7 @@ namespace System.Runtime.InteropServices
             IntPtr bstr = Interop.OleAut32.SysAllocStringLen(IntPtr.Zero, (uint)length);
             if (bstr == IntPtr.Zero)
             {
-                throw new OutOfMemoryException();
+                ThrowHelper.ThrowOutOfMemoryException();
             }
             return bstr;
         }
@@ -204,7 +204,7 @@ namespace System.Runtime.InteropServices
             IntPtr bstr = Interop.OleAut32.SysAllocStringByteLen(null, length);
             if (bstr == IntPtr.Zero)
             {
-                throw new OutOfMemoryException();
+                ThrowHelper.ThrowOutOfMemoryException();
             }
             return bstr;
         }

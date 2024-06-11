@@ -91,7 +91,7 @@ namespace System
 
         public static void SetTypedReference(TypedReference target, object? value)
         {
-            throw new NotSupportedException();
+            ThrowHelper.ThrowNotSupportedException();
         }
     }
 }

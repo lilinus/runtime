@@ -12,7 +12,7 @@ namespace System.Reflection.Emit
         internal static MethodInfo MakeGenericMethod(MethodInfo method, Type[] inst)
         {
             if (!method.IsGenericMethodDefinition)
-                throw new InvalidOperationException();
+                ThrowHelper.ThrowInvalidOperationException();
 
             return new MethodBuilderInstantiation(method, inst);
         }

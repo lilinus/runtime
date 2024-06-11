@@ -34,7 +34,7 @@ namespace System.Reflection.Emit
             Debug.Assert(type != null, "this is only called from RuntimeType.MakeGenericType and TypeBuilder.MakeGenericType so 'type' cannot be null");
 
             if (!type.IsGenericTypeDefinition)
-                throw new InvalidOperationException();
+                ThrowHelper.ThrowInvalidOperationException();
 
             ArgumentNullException.ThrowIfNull(typeArguments);
 
@@ -89,7 +89,7 @@ namespace System.Reflection.Emit
         public override Type MakeArrayType(int rank)
         {
             if (rank <= 0)
-                throw new IndexOutOfRangeException();
+                ThrowHelper.ThrowIndexOutOfRangeException();
 
             string s = rank == 1 ?
                 "[]" :

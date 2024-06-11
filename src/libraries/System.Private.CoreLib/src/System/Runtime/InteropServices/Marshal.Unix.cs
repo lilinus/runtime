@@ -98,14 +98,14 @@ namespace System.Runtime.InteropServices
 
             if (cbNative > uint.MaxValue)
             {
-                throw new OutOfMemoryException();
+                ThrowHelper.ThrowOutOfMemoryException();
             }
 
             void* p = Interop.Sys.Malloc((nuint)cbNative & ~WIN32_ALLOC_ALIGN);
 
             if (p == null)
             {
-                throw new OutOfMemoryException();
+                ThrowHelper.ThrowOutOfMemoryException();
             }
 
             void* s = (byte*)p + sizeof(nuint);
@@ -124,14 +124,14 @@ namespace System.Runtime.InteropServices
 
             if (cbNative > uint.MaxValue)
             {
-                throw new OutOfMemoryException();
+                ThrowHelper.ThrowOutOfMemoryException();
             }
 
             void* p = Interop.Sys.Malloc((nuint)cbNative & ~WIN32_ALLOC_ALIGN);
 
             if (p == null)
             {
-                throw new OutOfMemoryException();
+                ThrowHelper.ThrowOutOfMemoryException();
             }
 
             void* s = (byte*)p + sizeof(nuint);

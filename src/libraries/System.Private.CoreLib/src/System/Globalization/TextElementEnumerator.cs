@@ -56,7 +56,7 @@ namespace System.Globalization
             {
                 if (_currentTextElementOffset >= _str.Length)
                 {
-                    throw new InvalidOperationException(SR.InvalidOperation_EnumOpCantHappen);
+                    ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumOpCantHappen();
                 }
 
                 currentSubstr = _str.Substring(_currentTextElementOffset, _currentTextElementLength);
@@ -72,7 +72,7 @@ namespace System.Globalization
             {
                 if (_currentTextElementOffset >= _str.Length)
                 {
-                    throw new InvalidOperationException(SR.InvalidOperation_EnumOpCantHappen);
+                    ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumOpCantHappen();
                 }
 
                 return _currentTextElementOffset - _strStartIndex;

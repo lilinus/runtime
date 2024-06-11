@@ -34,7 +34,7 @@ namespace System.Threading
             {
                 _nativeTimer = Interop.Kernel32.CreateThreadpoolTimer(&TimerCallbackWindowsThreadPool, (IntPtr)_id, IntPtr.Zero);
                 if (_nativeTimer == IntPtr.Zero)
-                    throw new OutOfMemoryException();
+                    ThrowHelper.ThrowOutOfMemoryException();
             }
 
             // Negative time indicates the amount of time to wait relative to the current time, in 100 nanosecond units

@@ -47,7 +47,7 @@ namespace System.Threading
             if (_tpWait == IntPtr.Zero)
             {
                 _gcHandle.Free();
-                throw new OutOfMemoryException();
+                ThrowHelper.ThrowOutOfMemoryException();
             }
 
             if (NativeRuntimeEventSource.Log.IsEnabled())

@@ -1074,7 +1074,7 @@ namespace System.Collections
                 // were serializing it.  That's a race in their code.
                 if (_version != oldVersion)
                 {
-                    throw new InvalidOperationException(SR.InvalidOperation_EnumFailedVersion);
+                    ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumFailedVersion();
                 }
             }
         }
@@ -1421,7 +1421,7 @@ namespace System.Collections
                 get
                 {
                     if (!_current)
-                        throw new InvalidOperationException(SR.InvalidOperation_EnumNotStarted);
+                        ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumNotStarted();
                     return _currentKey!;
                 }
             }
@@ -1429,7 +1429,7 @@ namespace System.Collections
             public bool MoveNext()
             {
                 if (_version != _hashtable._version)
-                    throw new InvalidOperationException(SR.InvalidOperation_EnumFailedVersion);
+                    ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumFailedVersion();
                 while (_bucket > 0)
                 {
                     _bucket--;
@@ -1451,7 +1451,7 @@ namespace System.Collections
                 get
                 {
                     if (!_current)
-                        throw new InvalidOperationException(SR.InvalidOperation_EnumOpCantHappen);
+                        ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumOpCantHappen();
                     return new DictionaryEntry(_currentKey!, _currentValue);
                 }
             }
@@ -1461,7 +1461,7 @@ namespace System.Collections
                 get
                 {
                     if (!_current)
-                        throw new InvalidOperationException(SR.InvalidOperation_EnumOpCantHappen);
+                        ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumOpCantHappen();
 
                     if (_getObjectRetType == Keys)
                         return _currentKey;
@@ -1477,7 +1477,7 @@ namespace System.Collections
                 get
                 {
                     if (!_current)
-                        throw new InvalidOperationException(SR.InvalidOperation_EnumOpCantHappen);
+                        ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumOpCantHappen();
                     return _currentValue;
                 }
             }
@@ -1485,7 +1485,7 @@ namespace System.Collections
             public void Reset()
             {
                 if (_version != _hashtable._version)
-                    throw new InvalidOperationException(SR.InvalidOperation_EnumFailedVersion);
+                    ThrowHelper.ThrowInvalidOperationException_InvalidOperation_EnumFailedVersion();
                 _current = false;
                 _bucket = _hashtable._buckets.Length;
                 _currentKey = null;

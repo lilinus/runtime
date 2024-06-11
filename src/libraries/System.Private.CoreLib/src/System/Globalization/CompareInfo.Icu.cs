@@ -995,7 +995,7 @@ namespace System.Globalization
                         Interop.Globalization.ResultCode resultCode = Interop.Globalization.GetSortHandle(sortName, out result);
 
                         if (resultCode == Interop.Globalization.ResultCode.OutOfMemory)
-                            throw new OutOfMemoryException();
+                            ThrowHelper.ThrowOutOfMemoryException();
                         else if (resultCode != Interop.Globalization.ResultCode.Success)
                             throw new ExternalException(SR.Arg_ExternalException);
 

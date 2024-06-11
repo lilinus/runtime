@@ -63,12 +63,12 @@ namespace System.Reflection
             // method is on a class that contains stack pointers
             if ((InvocationFlags & InvocationFlags.ContainsStackPointers) != 0)
             {
-                throw new NotSupportedException();
+                ThrowHelper.ThrowNotSupportedException();
             }
             // method is vararg
             else if ((CallingConvention & CallingConventions.VarArgs) == CallingConventions.VarArgs)
             {
-                throw new NotSupportedException();
+                ThrowHelper.ThrowNotSupportedException();
             }
             // method is generic or on a generic class
             else if (DeclaringType!.ContainsGenericParameters || ContainsGenericParameters)

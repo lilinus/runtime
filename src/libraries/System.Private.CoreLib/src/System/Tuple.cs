@@ -210,7 +210,7 @@ namespace System
             {
                 if (index != 0)
                 {
-                    throw new IndexOutOfRangeException();
+                    ThrowHelper.ThrowIndexOutOfRangeException();
                 }
                 return Item1;
             }
