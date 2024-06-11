@@ -645,7 +645,6 @@ namespace System.Threading.Tasks
                         state is ValueTaskSourceAsTask vsts ?
                             $"{nameof(ValueTaskSourceAsTask)}.{nameof(_source)} : {vsts._source}" :
                             $"{nameof(state)} : {state}");
-                    ThrowUnexpectedStateForKnownCallback(state);
                     return;
                 }
 

@@ -94,10 +94,7 @@ namespace System.Globalization
             CheckEraRange(era);
             if (year < 1 || year > MaxCalendarYear)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(year),
-                    year,
-                    SR.Format(SR.ArgumentOutOfRange_Range, 1, MaxCalendarYear));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(year), year, 1, MaxCalendarYear);
             }
         }
 
@@ -108,10 +105,7 @@ namespace System.Globalization
             {
                 if (month > MaxCalendarMonth)
                 {
-                    throw new ArgumentOutOfRangeException(
-                        nameof(month),
-                        month,
-                        SR.Format(SR.ArgumentOutOfRange_Range, 1, MaxCalendarMonth));
+                    ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(month), month, 1, MaxCalendarMonth);
                 }
             }
 
@@ -220,10 +214,7 @@ namespace System.Globalization
         {
             if (months < -120000 || months > 120000)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(months),
-                    months,
-                    SR.Format(SR.ArgumentOutOfRange_Range, -120000, 120000));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(months), months, -120000, 120000);
             }
 
             // Get the date in Persian calendar.
@@ -405,10 +396,7 @@ namespace System.Globalization
                 VerifyWritable();
                 if (value < 99 || value > MaxCalendarYear)
                 {
-                    throw new ArgumentOutOfRangeException(
-                        nameof(value),
-                        value,
-                        SR.Format(SR.ArgumentOutOfRange_Range, 99, MaxCalendarYear));
+                    ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(value), value, 99, MaxCalendarYear);
                 }
 
                 _twoDigitYearMax = value;
@@ -425,10 +413,7 @@ namespace System.Globalization
 
             if (year > MaxCalendarYear)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(year),
-                    year,
-                    SR.Format(SR.ArgumentOutOfRange_Range, 1, MaxCalendarYear));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(year), year, 1, MaxCalendarYear);
             }
 
             return year;

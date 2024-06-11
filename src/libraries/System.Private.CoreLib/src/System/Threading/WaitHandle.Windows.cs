@@ -127,7 +127,7 @@ namespace System.Threading
                     throw new UnauthorizedAccessException();
 
                 case Interop.Errors.ERROR_NOT_ENOUGH_MEMORY:
-                    ThrowHelper.ThrowOutOfMemoryException();
+                    throw new OutOfMemoryException();
 
                 case Interop.Errors.ERROR_TOO_MANY_POSTS:
                     // Only applicable to <see cref="WaitHandle.SignalAndWait(WaitHandle, WaitHandle)"/>. Note however, that

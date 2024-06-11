@@ -318,10 +318,7 @@ namespace System.Globalization
             CheckEraRange(era);
             if (year < MinCalendarYear || year > MaxCalendarYear)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(year),
-                    year,
-                    SR.Format(SR.ArgumentOutOfRange_Range, MinCalendarYear, MaxCalendarYear));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(year), year, MinCalendarYear, MaxCalendarYear);
             }
         }
 
@@ -411,10 +408,7 @@ namespace System.Globalization
         {
             if (months < -120000 || months > 120000)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(months),
-                    months,
-                    SR.Format(SR.ArgumentOutOfRange_Range, -120000, 120000));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(months), months, -120000, 120000);
             }
 
             // Get the date in UmAlQura calendar.
@@ -611,10 +605,7 @@ namespace System.Globalization
             {
                 if (value != 99 && (value < MinCalendarYear || value > MaxCalendarYear))
                 {
-                    throw new ArgumentOutOfRangeException(
-                        nameof(value),
-                        value,
-                        SR.Format(SR.ArgumentOutOfRange_Range, MinCalendarYear, MaxCalendarYear));
+                    ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(value), value, MinCalendarYear, MaxCalendarYear);
                 }
 
                 VerifyWritable();
@@ -634,10 +625,7 @@ namespace System.Globalization
 
             if (year < MinCalendarYear || year > MaxCalendarYear)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(year),
-                    year,
-                    SR.Format(SR.ArgumentOutOfRange_Range, MinCalendarYear, MaxCalendarYear));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(year), year, MinCalendarYear, MaxCalendarYear);
             }
 
             return year;

@@ -163,10 +163,7 @@ namespace System.Globalization
                 VerifyWritable();
                 if (value < 99 || value > _helper.MaxYear)
                 {
-                    throw new ArgumentOutOfRangeException(
-                        nameof(value),
-                        value,
-                        SR.Format(SR.ArgumentOutOfRange_Range, 99, _helper.MaxYear));
+                    ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(value), value, 99, _helper.MaxYear);
                 }
 
                 _twoDigitYearMax = value;

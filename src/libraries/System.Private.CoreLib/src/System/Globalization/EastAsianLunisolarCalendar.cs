@@ -35,10 +35,7 @@ namespace System.Globalization
         {
             if (sexagenaryYear < 1 || sexagenaryYear > 60)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(sexagenaryYear),
-                    sexagenaryYear,
-                    SR.Format(SR.ArgumentOutOfRange_Range, 1, 60));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(sexagenaryYear), sexagenaryYear, 1, 60);
             }
 
             return ((sexagenaryYear - 1) % 10) + 1;
@@ -52,10 +49,7 @@ namespace System.Globalization
         {
             if (sexagenaryYear < 1 || sexagenaryYear > 60)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(sexagenaryYear),
-                    sexagenaryYear,
-                    SR.Format(SR.ArgumentOutOfRange_Range, 1, 60));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(sexagenaryYear), sexagenaryYear, 1, 60);
             }
 
             return ((sexagenaryYear - 1) % 12) + 1;
@@ -170,10 +164,7 @@ namespace System.Globalization
 
             if (year < MinCalendarYear || year > MaxCalendarYear)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(year),
-                    year,
-                    SR.Format(SR.ArgumentOutOfRange_Range, MinEraCalendarYear(era), MaxEraCalendarYear(era)));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(year), year, MinEraCalendarYear(era), MaxEraCalendarYear(era));
             }
             return year;
         }
@@ -425,10 +416,7 @@ namespace System.Globalization
         {
             if (months < -120000 || months > 120000)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(months),
-                    months,
-                    SR.Format(SR.ArgumentOutOfRange_Range, -120000, 120000));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(months), months, -120000, 120000);
             }
 
             CheckTicksRange(time.Ticks);
@@ -663,10 +651,7 @@ namespace System.Globalization
                 VerifyWritable();
                 if (value < 99 || value > MaxCalendarYear)
                 {
-                    throw new ArgumentOutOfRangeException(
-                        nameof(value),
-                        value,
-                        SR.Format(SR.ArgumentOutOfRange_Range, 99, MaxCalendarYear));
+                    ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(value), value, 99, MaxCalendarYear);
                 }
 
                 _twoDigitYearMax = value;

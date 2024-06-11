@@ -62,10 +62,7 @@ namespace System.Globalization
             CheckEraRange(era);
             if (year <= 0 || year > MaxYear)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(year),
-                    year,
-                    SR.Format(SR.ArgumentOutOfRange_Range, 1, MaxYear));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(year), year, 1, MaxYear);
             }
         }
 
@@ -100,10 +97,7 @@ namespace System.Globalization
             int monthDays = days[month] - days[month - 1];
             if (day < 1 || day > monthDays)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(day),
-                    day,
-                    SR.Format(SR.ArgumentOutOfRange_Range, 1, monthDays));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(day), day, 1, monthDays);
             }
         }
 
@@ -181,10 +175,7 @@ namespace System.Globalization
         {
             if (months < -120000 || months > 120000)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(months),
-                    months,
-                    SR.Format(SR.ArgumentOutOfRange_Range, -120000, 120000));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(months), months, -120000, 120000);
             }
 
             int y = GetDatePart(time.Ticks, DatePartYear);
@@ -305,10 +296,7 @@ namespace System.Globalization
             CheckDayRange(year, month, day);
             if (millisecond < 0 || millisecond >= MillisPerSecond)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(millisecond),
-                    millisecond,
-                    SR.Format(SR.ArgumentOutOfRange_Range, 0, MillisPerSecond - 1));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(millisecond), millisecond, 1, MillisPerSecond - 1);
             }
 
             if (hour < 0 || hour >= 24 || minute < 0 || minute >= 60 || second < 0 || second >= 60)
@@ -327,10 +315,7 @@ namespace System.Globalization
                 VerifyWritable();
                 if (value < 99 || value > MaxYear)
                 {
-                    throw new ArgumentOutOfRangeException(
-                        nameof(value),
-                        value,
-                        SR.Format(SR.ArgumentOutOfRange_Range, 99, MaxYear));
+                    ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(value), value, 99, MaxYear);
                 }
 
                 _twoDigitYearMax = value;

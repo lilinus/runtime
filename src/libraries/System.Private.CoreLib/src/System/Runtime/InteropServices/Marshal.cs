@@ -296,7 +296,7 @@ namespace System.Runtime.InteropServices
             catch (NullReferenceException)
             {
                 // this method is documented to throw AccessViolationException on any AV
-                ThrowHelper.ThrowAccessViolationException();
+                throw new AccessViolationException();
             }
         }
 
@@ -320,7 +320,7 @@ namespace System.Runtime.InteropServices
             catch (NullReferenceException)
             {
                 // this method is documented to throw AccessViolationException on any AV
-                ThrowHelper.ThrowAccessViolationException();
+                throw new AccessViolationException();
             }
         }
 
@@ -344,7 +344,7 @@ namespace System.Runtime.InteropServices
             catch (NullReferenceException)
             {
                 // this method is documented to throw AccessViolationException on any AV
-                ThrowHelper.ThrowAccessViolationException();
+                throw new AccessViolationException();
             }
         }
 
@@ -391,7 +391,7 @@ namespace System.Runtime.InteropServices
             catch (NullReferenceException)
             {
                 // this method is documented to throw AccessViolationException on any AV
-                ThrowHelper.ThrowAccessViolationException();
+                throw new AccessViolationException();
             }
         }
 

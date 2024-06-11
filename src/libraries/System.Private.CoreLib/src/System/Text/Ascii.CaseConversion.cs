@@ -514,7 +514,7 @@ namespace System.Text
             }
             else
             {
-                ThrowHelper.ThrowNotSupportedException();
+                throw new NotSupportedException();
             }
         }
 

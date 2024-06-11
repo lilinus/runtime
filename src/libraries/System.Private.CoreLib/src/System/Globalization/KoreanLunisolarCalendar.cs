@@ -1184,10 +1184,7 @@ namespace System.Globalization
         {
             if (lunarYear < MinLunisolarYear || lunarYear > MaxLunisolarYear)
             {
-                throw new ArgumentOutOfRangeException(
-                    "year",
-                    lunarYear,
-                    SR.Format(SR.ArgumentOutOfRange_Range, MinLunisolarYear, MaxLunisolarYear));
+                ThrowHelper.ThrowArgumentOutOfRange_Range("year", lunarYear, MinLunisolarYear, MaxLunisolarYear);
             }
 
             return s_yinfo[lunarYear - MinLunisolarYear, index];
@@ -1206,10 +1203,7 @@ namespace System.Globalization
             }
             if (year < MinLunisolarYear || year > MaxLunisolarYear)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(year),
-                    year,
-                    SR.Format(SR.ArgumentOutOfRange_Range, MinLunisolarYear, MaxLunisolarYear));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(year), year, MinLunisolarYear, MaxLunisolarYear);
             }
 
             return year;

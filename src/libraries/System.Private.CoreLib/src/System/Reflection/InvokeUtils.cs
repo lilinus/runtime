@@ -23,7 +23,7 @@ namespace System.Reflection
                 }
 
                 Debug.Fail($"Unexpected CorElementType: {dstElementType}. Not a valid widening target.");
-                ThrowHelper.ThrowNotSupportedException();
+                throw new NotSupportedException();
             }
 
             switch (dstElementType)
@@ -101,7 +101,7 @@ namespace System.Reflection
 
                 default:
                     Debug.Fail($"Unexpected CorElementType: {dstElementType}. Not a valid widening target.");
-                    ThrowHelper.ThrowNotSupportedException();
+                    throw new NotSupportedException();
             }
 
             Debug.Assert(dstObject != null);

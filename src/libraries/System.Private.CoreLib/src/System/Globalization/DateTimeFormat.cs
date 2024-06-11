@@ -703,7 +703,7 @@ namespace System
                             // This means that '%' is at the end of the format string or
                             // "%%" appears in the format string.
                             //
-                            ThrowHelper.ThrowFormatInvalidString();
+                            throw new FormatException(SR.Format_InvalidString);
                         }
                         break;
 
@@ -727,7 +727,7 @@ namespace System
                             //
                             // This means that '\' is at the end of the formatting string.
                             //
-                            ThrowHelper.ThrowFormatInvalidString();
+                            throw new FormatException(SR.Format_InvalidString);
                         }
                         break;
 
@@ -1762,7 +1762,7 @@ namespace System
                     results = new string[] { Format(dateTime, char.ToString(format), dtfi) };
                     break;
                 default:
-                    ThrowHelper.ThrowFormatInvalidString();
+                    throw new FormatException(SR.Format_InvalidString);
             }
             return results;
         }
