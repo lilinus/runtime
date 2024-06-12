@@ -240,6 +240,7 @@ namespace System.Threading.Tasks
                     // or if this callback were invoked multiple times such that the state
                     // was previously nulled out.
                     ThrowUnexpectedStateForKnownCallback(state);
+                    return;
 
                     static void ThrowUnexpectedStateForKnownCallback(object? state) =>
                         throw new ArgumentOutOfRangeException(
@@ -248,7 +249,6 @@ namespace System.Threading.Tasks
                                 $"{nameof(ValueTaskSourceAsTask)}.{nameof(_source)} : {vsts._source}" :
                                 $"{nameof(state)} : {state}",
                             SR.Argument_UnexpectedStateForKnownCallback);
-                    return;
                 }
 
                 vtst._source = null;
@@ -647,6 +647,7 @@ namespace System.Threading.Tasks
                     // or if this callback were invoked multiple times such that the state
                     // was previously nulled out.
                     ThrowUnexpectedStateForKnownCallback(state);
+                    return;
 
                     static void ThrowUnexpectedStateForKnownCallback(object? state) =>
                         throw new ArgumentOutOfRangeException(
@@ -655,7 +656,6 @@ namespace System.Threading.Tasks
                                 $"{nameof(ValueTaskSourceAsTask)}.{nameof(_source)} : {vsts._source}" :
                                 $"{nameof(state)} : {state}",
                             SR.Argument_UnexpectedStateForKnownCallback);
-                    return;
                 }
 
                 vtst._source = null;
