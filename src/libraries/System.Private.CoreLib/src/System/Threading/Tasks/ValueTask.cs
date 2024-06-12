@@ -239,10 +239,15 @@ namespace System.Threading.Tasks
                     // This could only happen if the IValueTaskSource passed the wrong state
                     // or if this callback were invoked multiple times such that the state
                     // was previously nulled out.
-                    ThrowHelper.ThrowUnexpectedStateForKnownCallback(
-                        state is ValueTaskSourceAsTask vsts ?
-                            $"{nameof(ValueTaskSourceAsTask)}.{nameof(_source)} : {vsts._source}" :
-                            $"{nameof(state)} : {state}");
+                    ThrowUnexpectedStateForKnownCallback(state);
+
+                    static void ThrowUnexpectedStateForKnownCallback(object? state) =>
+                        throw new ArgumentOutOfRangeException(
+                            nameof(state),
+                            state is ValueTaskSourceAsTask vsts ?
+                                $"{nameof(ValueTaskSourceAsTask)}.{nameof(_source)} : {vsts._source}" :
+                                $"{nameof(state)} : {state}",
+                            SR.Argument_UnexpectedStateForKnownCallback);
                     return;
                 }
 
@@ -641,10 +646,15 @@ namespace System.Threading.Tasks
                     // This could only happen if the IValueTaskSource<TResult> passed the wrong state
                     // or if this callback were invoked multiple times such that the state
                     // was previously nulled out.
-                    ThrowHelper.ThrowUnexpectedStateForKnownCallback(
-                        state is ValueTaskSourceAsTask vsts ?
-                            $"{nameof(ValueTaskSourceAsTask)}.{nameof(_source)} : {vsts._source}" :
-                            $"{nameof(state)} : {state}");
+                    ThrowUnexpectedStateForKnownCallback(state);
+
+                    static void ThrowUnexpectedStateForKnownCallback(object? state) =>
+                        throw new ArgumentOutOfRangeException(
+                            nameof(state),
+                            state is ValueTaskSourceAsTask vsts ?
+                                $"{nameof(ValueTaskSourceAsTask)}.{nameof(_source)} : {vsts._source}" :
+                                $"{nameof(state)} : {state}",
+                            SR.Argument_UnexpectedStateForKnownCallback);
                     return;
                 }
 

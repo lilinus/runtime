@@ -574,7 +574,7 @@ namespace System.Collections
             ArgumentNullException.ThrowIfNull(array);
 
             if (array.Rank != 1)
-                ThrowHelper.ThrowArgumentException(ExceptionResource.Rank_MultiDimNotSupported, ExceptionArgument.array);
+                ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_RankMultiDimNotSupported, ExceptionArgument.array);
             ArgumentOutOfRangeException.ThrowIfNegative(arrayIndex);
             if (array.Length - arrayIndex < Count)
                 ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_ArrayPlusOffTooSmall);
@@ -1226,7 +1226,7 @@ namespace System.Collections
                 ArgumentNullException.ThrowIfNull(array);
 
                 if (array.Rank != 1)
-                    ThrowHelper.ThrowArgumentException(ExceptionResource.Rank_MultiDimNotSupported, ExceptionArgument.array);
+                    ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_RankMultiDimNotSupported, ExceptionArgument.array);
                 ArgumentOutOfRangeException.ThrowIfNegative(arrayIndex);
                 if (array.Length - arrayIndex < _hashtable._count)
                     ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_ArrayPlusOffTooSmall);
