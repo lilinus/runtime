@@ -1939,7 +1939,7 @@ namespace System.Collections.Generic
             {
                 _tree = set;
                 // 2 log(n + 1) is the maximum height.
-                _stack = new Stack<Node>();
+                _stack = new Stack<Node>(initialStackSize);
                 _isTreeSubSet = isTreeSubSet;
                 _current = null;
                 Initialize();
@@ -1949,10 +1949,10 @@ namespace System.Collections.Generic
             {
                 _current = null;
                 Node? node = _tree.root;
-                Node? next;
 
                 if (_isTreeSubSet)
                 {
+                    Node? next, other;
                     while (node != null)
                     {
                         next = node.Left;
@@ -2024,6 +2024,8 @@ namespace System.Collections.Generic
 
                 return true;
             }
+
+            public FastEnumerator GetEnumerator() => this;
 
             public T Current => _current!.Item;
 
