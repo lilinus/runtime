@@ -182,63 +182,10 @@ namespace System.Collections.Generic
                 }
             }
 
-            internal override bool InOrderTreeWalk(TreeWalkPredicate<T> action)
+            internal override FastEnumerator GetFastEnumerator()
             {
-                VersionCheck();
-
-                if (root == null)
-                {
-                    return true;
-                }
-
-                // The maximum height of a red-black tree is 2*lg(n+1).
-                // See page 264 of "Introduction to algorithms" by Thomas H. Cormen
-                Stack<Node> stack = new Stack<Node>(2 * (int)SortedSet<T>.Log2(count + 1)); // this is not exactly right if count is out of date, but the stack can grow
-                Node? current = root;
-                while (current != null)
-                {
-                    if (IsWithinRange(current.Item))
-                    {
-                        stack.Push(current);
-                        current = current.Left;
-                    }
-                    else if (_lBoundActive && Comparer.Compare(_min, current.Item) > 0)
-                    {
-                        current = current.Right;
-                    }
-                    else
-                    {
-                        current = current.Left;
-                    }
-                }
-
-                while (stack.Count != 0)
-                {
-                    current = stack.Pop();
-                    if (!action(current))
-                    {
-                        return false;
-                    }
-
-                    Node? node = current.Right;
-                    while (node != null)
-                    {
-                        if (IsWithinRange(node.Item))
-                        {
-                            stack.Push(node);
-                            node = node.Left;
-                        }
-                        else if (_lBoundActive && Comparer.Compare(_min, node.Item) > 0)
-                        {
-                            node = node.Right;
-                        }
-                        else
-                        {
-                            node = node.Left;
-                        }
-                    }
-                }
-                return true;
+                int initialStackSize = 2 * (int)Log2(count + 1); // this is not exactly right if count is out of date, but the stack can grow
+                return new FastEnumerator(this, initialStackSize, true);
             }
 
             internal override bool BreadthFirstTreeWalk(TreeWalkPredicate<T> action)
@@ -322,7 +269,11 @@ namespace System.Collections.Generic
                 if (updateCount && _countVersion != _underlying.version)
                 {
                     count = 0;
-                    InOrderTreeWalk(n => { count++; return true; });
+                    FastEnumerator enumerator = GetFastEnumerator();
+                    while (enumerator.MoveNext())
+                    {
+                        count++;
+                    }
                     _countVersion = _underlying.version;
                 }
             }

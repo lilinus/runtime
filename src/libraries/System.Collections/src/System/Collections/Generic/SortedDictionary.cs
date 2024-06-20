@@ -213,33 +213,24 @@ namespace System.Collections.Generic
 
         public bool ContainsValue(TValue value)
         {
-            bool found = false;
             if (value == null)
             {
-                _set.InOrderTreeWalk(delegate (TreeSet<KeyValuePair<TKey, TValue>>.Node node)
+                foreach(KeyValuePair<TKey, TValue> item in _set.GetFastEnumerator())
                 {
-                    if (node.Item.Value == null)
-                    {
-                        found = true;
-                        return false;  // stop the walk
-                    }
-                    return true;
-                });
+                    if (item.Value == null)
+                        return true;
+                }
             }
             else
             {
                 EqualityComparer<TValue> valueComparer = EqualityComparer<TValue>.Default;
-                _set.InOrderTreeWalk(delegate (TreeSet<KeyValuePair<TKey, TValue>>.Node node)
+                foreach (KeyValuePair<TKey, TValue> item in _set.GetFastEnumerator())
                 {
-                    if (valueComparer.Equals(node.Item.Value, value))
-                    {
-                        found = true;
-                        return false;  // stop the walk
-                    }
-                    return true;
-                });
+                    if (valueComparer.Equals(item.Value, value))
+                        return true;
+                }
             }
-            return found;
+            return false;
         }
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int index)
@@ -550,7 +541,10 @@ namespace System.Collections.Generic
                     throw new ArgumentException(SR.Arg_ArrayPlusOffTooSmall);
                 }
 
-                _dictionary._set.InOrderTreeWalk(delegate (TreeSet<KeyValuePair<TKey, TValue>>.Node node) { array[index++] = node.Item.Key; return true; });
+                foreach (KeyValuePair<TKey, TValue> item in _dictionary._set.GetFastEnumerator())
+                {
+                    array[index++] = item.Key;
+                }
             }
 
             void ICollection.CopyTo(Array array, int index)
@@ -583,7 +577,10 @@ namespace System.Collections.Generic
                     try
                     {
                         object[] objects = (object[])array;
-                        _dictionary._set.InOrderTreeWalk(delegate (TreeSet<KeyValuePair<TKey, TValue>>.Node node) { objects[index++] = node.Item.Key; return true; });
+                        foreach (KeyValuePair<TKey, TValue> item in _dictionary._set.GetFastEnumerator())
+                        {
+                            objects[index++] = item.Key;
+                        }
                     }
                     catch (ArrayTypeMismatchException)
                     {
@@ -711,7 +708,10 @@ namespace System.Collections.Generic
                     throw new ArgumentException(SR.Arg_ArrayPlusOffTooSmall);
                 }
 
-                _dictionary._set.InOrderTreeWalk(delegate (TreeSet<KeyValuePair<TKey, TValue>>.Node node) { array[index++] = node.Item.Value; return true; });
+                foreach (KeyValuePair<TKey, TValue> item in _dictionary._set.GetFastEnumerator())
+                {
+                    array[index++] = item.Value;
+                }
             }
 
             void ICollection.CopyTo(Array array, int index)
@@ -744,7 +744,10 @@ namespace System.Collections.Generic
                     try
                     {
                         object?[] objects = (object?[])array;
-                        _dictionary._set.InOrderTreeWalk(delegate (TreeSet<KeyValuePair<TKey, TValue>>.Node node) { objects[index++] = node.Item.Value; return true; });
+                        foreach (KeyValuePair<TKey, TValue> item in _dictionary._set.GetFastEnumerator())
+                        {
+                            objects[index++] = item.Value;
+                        }
                     }
                     catch (ArrayTypeMismatchException)
                     {

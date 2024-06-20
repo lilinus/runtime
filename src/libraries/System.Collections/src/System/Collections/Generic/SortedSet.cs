@@ -172,54 +172,6 @@ namespace System.Collections.Generic
         }
 
         /// <summary>
-        /// Does an in-order tree walk and calls the delegate for each node.
-        /// </summary>
-        /// <param name="action">
-        /// The delegate to invoke on each node.
-        /// If the delegate returns <c>false</c>, the walk is stopped.
-        /// </param>
-        /// <returns><c>true</c> if the entire tree has been walked; otherwise, <c>false</c>.</returns>
-        internal virtual bool InOrderTreeWalk(TreeWalkPredicate<T> action)
-        {
-            if (root == null)
-            {
-                return true;
-            }
-
-            // The maximum height of a red-black tree is 2 * log2(n+1).
-            // See page 264 of "Introduction to algorithms" by Thomas H. Cormen
-            // Note: It's not strictly necessary to provide the stack capacity, but we don't
-            // want the stack to unnecessarily allocate arrays as it grows.
-
-            var stack = new Stack<Node>(2 * (int)Log2(Count + 1));
-            Node? current = root;
-
-            while (current != null)
-            {
-                stack.Push(current);
-                current = current.Left;
-            }
-
-            while (stack.Count != 0)
-            {
-                current = stack.Pop();
-                if (!action(current))
-                {
-                    return false;
-                }
-
-                Node? node = current.Right;
-                while (node != null)
-                {
-                    stack.Push(node);
-                    node = node.Left;
-                }
-            }
-
-            return true;
-        }
-
-        /// <summary>
         /// Does a left-to-right breadth-first tree walk and calls the delegate for each node.
         /// </summary>
         /// <param name="action">
@@ -525,16 +477,14 @@ namespace System.Collections.Generic
 
             count += index; // Make `count` the upper bound.
 
-            InOrderTreeWalk(node =>
+            foreach (T item in GetFastEnumerator())
             {
                 if (index >= count)
                 {
-                    return false;
+                    break;
                 }
-
-                array[index++] = node.Item;
-                return true;
-            });
+                array[index++] = item;
+            }
         }
 
         void ICollection.CopyTo(Array array, int index)
@@ -573,11 +523,10 @@ namespace System.Collections.Generic
 
                 try
                 {
-                    InOrderTreeWalk(node =>
+                    foreach(T item in GetFastEnumerator())
                     {
-                        objects[index++] = node.Item;
-                        return true;
-                    });
+                        objects[index++] = item;
+                    }
                 }
                 catch (ArrayTypeMismatchException)
                 {
@@ -1974,6 +1923,115 @@ namespace System.Collections.Generic
             }
 
             void IEnumerator.Reset() => Reset();
+        }
+
+        internal virtual FastEnumerator GetFastEnumerator() => new FastEnumerator(this, 2 * (int)Log2(Count + 1), false);
+
+        internal ref struct FastEnumerator
+        {
+
+            private readonly SortedSet<T> _tree;
+            private readonly Stack<Node> _stack;
+            private readonly bool _isTreeSubSet;
+            private Node? _current;
+
+            internal FastEnumerator(SortedSet<T> set, int initialStackSize, bool isTreeSubSet)
+            {
+                _tree = set;
+                // 2 log(n + 1) is the maximum height.
+                _stack = new Stack<Node>();
+                _isTreeSubSet = isTreeSubSet;
+                _current = null;
+                Initialize();
+            }
+
+            private void Initialize()
+            {
+                _current = null;
+                Node? node = _tree.root;
+                Node? next;
+
+                if (_isTreeSubSet)
+                {
+                    while (node != null)
+                    {
+                        next = node.Left;
+                        other = node.Right;
+                        if (_tree.IsWithinRange(node.Item))
+                        {
+                            _stack.Push(node);
+                            node = next;
+                        }
+                        else if (next == null || !_tree.IsWithinRange(next.Item))
+                        {
+                            node = other;
+                        }
+                        else
+                        {
+                            node = next;
+                        }
+                    }
+                }
+                else
+                {
+                    while (node != null)
+                    {
+                        _stack.Push(node);
+                        node = node.Left;
+                    }
+                }
+            }
+
+            public bool MoveNext()
+            {
+                if (!_stack.TryPop(out _current))
+                {
+                    _current = null;
+                    return false;
+                }
+
+                Node? node = _current.Right;
+                if (_isTreeSubSet)
+                {
+                    Node? next, other;
+                    while (node != null)
+                    {
+                        next = node.Left;
+                        other = node.Right;
+                        if (_tree.IsWithinRange(node.Item))
+                        {
+                            _stack.Push(node);
+                            node = next;
+                        }
+                        else if (other == null || !_tree.IsWithinRange(other.Item))
+                        {
+                            node = next;
+                        }
+                        else
+                        {
+                            node = other;
+                        }
+                    }
+                }
+                else
+                {
+                    while (node != null)
+                    {
+                        _stack.Push(node);
+                        node = node.Left;
+                    }
+                }
+
+                return true;
+            }
+
+            public T Current => _current!.Item;
+
+            internal void Reset()
+            {
+                _stack.Clear();
+                Initialize();
+            }
         }
 
         internal struct ElementCount
