@@ -529,7 +529,7 @@ namespace System.Globalization
             era--;
             if ((uint)era >= names.Length)
             {
-                throw new ArgumentOutOfRangeException(nameof(era), era + 1, SR.ArgumentOutOfRange_InvalidEraValue);
+                ThrowHelper.ThrowArgumentOutOfRange_InvalidEraValue(era + 1);
             }
 
             return names[era];
@@ -558,7 +558,7 @@ namespace System.Globalization
             era--;
             if ((uint)era >= (uint)names.Length)
             {
-                throw new ArgumentOutOfRangeException(nameof(era), era + 1, SR.ArgumentOutOfRange_InvalidEraValue);
+                ThrowHelper.ThrowArgumentOutOfRange_InvalidEraValue(era + 1);
             }
 
             return names[era];

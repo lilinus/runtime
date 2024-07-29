@@ -203,7 +203,7 @@ namespace System.Globalization
         {
             if (era != CurrentEra && era != ADEra)
             {
-                throw new ArgumentOutOfRangeException(nameof(era), era, SR.ArgumentOutOfRange_InvalidEraValue);
+                ThrowHelper.ThrowArgumentOutOfRange_InvalidEraValue(era);
             }
             return DateTime.DaysInMonth(year, month);
         }
@@ -216,7 +216,7 @@ namespace System.Globalization
         {
             if (era != CurrentEra && era != ADEra)
             {
-                throw new ArgumentOutOfRangeException(nameof(era), era, SR.ArgumentOutOfRange_InvalidEraValue);
+                ThrowHelper.ThrowArgumentOutOfRange_InvalidEraValue(era);
             }
             return DateTime.IsLeapYear(year) ? 366 : 365;
         }
@@ -238,7 +238,7 @@ namespace System.Globalization
         {
             if (era != CurrentEra && era != ADEra)
             {
-                throw new ArgumentOutOfRangeException(nameof(era), era, SR.ArgumentOutOfRange_InvalidEraValue);
+                ThrowHelper.ThrowArgumentOutOfRange_InvalidEraValue(era);
             }
             if (year < 1 || year > MaxYear)
             {
@@ -283,7 +283,7 @@ namespace System.Globalization
 
             if (era != CurrentEra && era != ADEra)
             {
-                throw new ArgumentOutOfRangeException(nameof(era), era, SR.ArgumentOutOfRange_InvalidEraValue);
+                ThrowHelper.ThrowArgumentOutOfRange_InvalidEraValue(era);
             }
             if (year < 1 || year > MaxYear)
             {
@@ -306,7 +306,7 @@ namespace System.Globalization
         {
             if (era != CurrentEra && era != ADEra)
             {
-                throw new ArgumentOutOfRangeException(nameof(era), era, SR.ArgumentOutOfRange_InvalidEraValue);
+                ThrowHelper.ThrowArgumentOutOfRange_InvalidEraValue(era);
             }
             if (year < 1 || year > MaxYear)
             {
@@ -324,7 +324,7 @@ namespace System.Globalization
         {
             if (era != CurrentEra && era != ADEra)
             {
-                throw new ArgumentOutOfRangeException(nameof(era), era, SR.ArgumentOutOfRange_InvalidEraValue);
+                ThrowHelper.ThrowArgumentOutOfRange_InvalidEraValue(era);
             }
             if (year < 1 || year > MaxYear)
             {
@@ -346,7 +346,7 @@ namespace System.Globalization
         {
             if (era != CurrentEra && era != ADEra)
             {
-                throw new ArgumentOutOfRangeException(nameof(era), era, SR.ArgumentOutOfRange_InvalidEraValue);
+                ThrowHelper.ThrowArgumentOutOfRange_InvalidEraValue(era);
             }
             return DateTime.IsLeapYear(year);
         }
@@ -359,7 +359,7 @@ namespace System.Globalization
         {
             if (era != CurrentEra && era != ADEra)
             {
-                throw new ArgumentOutOfRangeException(nameof(era), era, SR.ArgumentOutOfRange_InvalidEraValue);
+                ThrowHelper.ThrowArgumentOutOfRange_InvalidEraValue(era);
             }
 
             return new DateTime(year, month, day, hour, minute, second, millisecond);

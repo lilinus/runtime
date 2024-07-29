@@ -138,7 +138,7 @@ namespace System.Globalization
 
             if (throwOnError)
             {
-                throw new ArgumentOutOfRangeException(nameof(era), SR.ArgumentOutOfRange_InvalidEraValue);
+                ThrowHelper.ThrowArgumentOutOfRange_InvalidEraValue(era);
             }
             return -1;
         }

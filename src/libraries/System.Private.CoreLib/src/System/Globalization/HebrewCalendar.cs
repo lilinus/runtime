@@ -331,7 +331,7 @@ namespace System.Globalization
         {
             if (era != CurrentEra && era != HebrewEra)
             {
-                throw new ArgumentOutOfRangeException(nameof(era), era, SR.ArgumentOutOfRange_InvalidEraValue);
+                ThrowHelper.ThrowArgumentOutOfRange_InvalidEraValue(era);
             }
         }
 

@@ -153,7 +153,7 @@ namespace System.Globalization
 
             if (era < GetEra(MinDate) || era > GetEra(MaxDate))
             {
-                throw new ArgumentOutOfRangeException(nameof(era), era, SR.ArgumentOutOfRange_InvalidEraValue);
+                ThrowHelper.ThrowArgumentOutOfRange_InvalidEraValue(era);
             }
         }
 
@@ -238,10 +238,7 @@ namespace System.Globalization
             int daysInMonth = InternalGetDaysInMonth(year, month);
             if (day < 1 || day > daysInMonth)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(day),
-                    day,
-                    SR.Format(SR.ArgumentOutOfRange_Day, daysInMonth, month));
+                ThrowHelper.ThrowArgumentOutOfRange_Day(day, daysInMonth, month);
             }
 
             if (!LunarToGregorian(year, month, day, out int gy, out int gm, out int gd))
@@ -586,10 +583,7 @@ namespace System.Globalization
 
             if (day < 1 || day > daysInMonth)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(day),
-                    day,
-                    SR.Format(SR.ArgumentOutOfRange_Day, daysInMonth, month));
+                ThrowHelper.ThrowArgumentOutOfRange_Day(day, daysInMonth, month);
             }
 
             int m = GetYearInfo(year, LeapMonth);

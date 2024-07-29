@@ -53,7 +53,7 @@ namespace System.Globalization
         {
             if (era != CurrentEra && era != JulianEra)
             {
-                throw new ArgumentOutOfRangeException(nameof(era), era, SR.ArgumentOutOfRange_InvalidEraValue);
+                ThrowHelper.ThrowArgumentOutOfRange_InvalidEraValue(era);
             }
         }
 
@@ -327,10 +327,7 @@ namespace System.Globalization
             ArgumentOutOfRangeException.ThrowIfNegative(year);
             if (year > MaxYear)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(year),
-                    year,
-                    SR.Format(SR.ArgumentOutOfRange_Bounds_Lower_Upper, 1, MaxYear));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(year), year, 1, MaxYear);
             }
 
             return base.ToFourDigitYear(year);

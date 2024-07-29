@@ -151,7 +151,7 @@ namespace System.Globalization
         {
             if (era != CurrentEra && era != HijriEra)
             {
-                throw new ArgumentOutOfRangeException(nameof(era), era, SR.ArgumentOutOfRange_InvalidEraValue);
+                ThrowHelper.ThrowArgumentOutOfRange_InvalidEraValue(era);
             }
         }
 
@@ -360,10 +360,7 @@ namespace System.Globalization
             int daysInMonth = GetDaysInMonth(year, month, era);
             if (day < 1 || day > daysInMonth)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(day),
-                    day,
-                    SR.Format(SR.ArgumentOutOfRange_Day, daysInMonth, month));
+                ThrowHelper.ThrowArgumentOutOfRange_Day(day, daysInMonth, month);
             }
 
             return IsLeapYear(year, era) && month == 12 && day == 30;
@@ -393,10 +390,7 @@ namespace System.Globalization
             int daysInMonth = GetDaysInMonth(year, month, era);
             if (day < 1 || day > daysInMonth)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(day),
-                    day,
-                    SR.Format(SR.ArgumentOutOfRange_Day, daysInMonth, month));
+                ThrowHelper.ThrowArgumentOutOfRange_Day(day, daysInMonth, month);
             }
 
             long lDate = GetAbsoluteDateHijri(year, month, day);

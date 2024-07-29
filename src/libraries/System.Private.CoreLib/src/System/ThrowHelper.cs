@@ -207,6 +207,18 @@ namespace System
         }
 
         [DoesNotReturn]
+        internal static void ThrowArgumentOutOfRange_Day(int day, int daysInMonth, int month)
+        {
+            throw new ArgumentOutOfRangeException(nameof(day), day, SR.Format(SR.ArgumentOutOfRange_Day, daysInMonth, month));
+        }
+
+        [DoesNotReturn]
+        internal static void ThrowArgumentOutOfRange_InvalidEraValue(int era)
+        {
+            throw new ArgumentOutOfRangeException(nameof(era), era, SR.ArgumentOutOfRange_InvalidEraValue);
+        }
+
+        [DoesNotReturn]
         internal static void ThrowArgumentOutOfRange_DayNumber(int dayNumber)
         {
             throw new ArgumentOutOfRangeException(nameof(dayNumber), dayNumber, SR.ArgumentOutOfRange_DayNumber);

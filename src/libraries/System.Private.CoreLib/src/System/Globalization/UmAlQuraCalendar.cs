@@ -309,7 +309,7 @@ namespace System.Globalization
         {
             if (era != CurrentEra && era != UmAlQuraEra)
             {
-                throw new ArgumentOutOfRangeException(nameof(era), era, SR.ArgumentOutOfRange_InvalidEraValue);
+                ThrowHelper.ThrowArgumentOutOfRange_InvalidEraValue(era);
             }
         }
 
@@ -534,10 +534,7 @@ namespace System.Globalization
             int daysInMonth = GetDaysInMonth(year, month, era);
             if (day < 1 || day > daysInMonth)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(day),
-                    day,
-                    SR.Format(SR.ArgumentOutOfRange_Day, daysInMonth, month));
+                ThrowHelper.ThrowArgumentOutOfRange_Day(day, daysInMonth, month);
             }
             return false;
         }
@@ -573,10 +570,7 @@ namespace System.Globalization
 
             if (day < 1 || day > daysInMonth)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(day),
-                    day,
-                    SR.Format(SR.ArgumentOutOfRange_Day, daysInMonth, month));
+                ThrowHelper.ThrowArgumentOutOfRange_Day(day, daysInMonth, month);
             }
         DayInRang:
             long lDate = GetAbsoluteDateUmAlQura(year, month, day);
