@@ -1,6 +1,8 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+using static System.Runtime.EH;
+
 namespace System.Globalization
 {
     // Gregorian Calendars use Era Info
@@ -78,7 +80,7 @@ namespace System.Globalization
             {
                 if (throwOnError)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(year), SR.ArgumentOutOfRange_NeedNonNegNum);
+                    ThrowHelper.ThrowArgumentOutOfRangeException_NeedNonNegNum(nameof(year));
                 }
                 return -1;
             }

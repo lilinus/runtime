@@ -293,10 +293,7 @@ namespace System.Globalization
             CheckEraRange(era);
             if (y > MaxHebrewYear || y < MinHebrewYear)
             {
-                throw new ArgumentOutOfRangeException(
-                    varName,
-                    y,
-                    SR.Format(SR.ArgumentOutOfRange_Range, MinHebrewYear, MaxHebrewYear));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(varName, y, MinHebrewYear, MaxHebrewYear);
             }
         }
 
@@ -311,10 +308,7 @@ namespace System.Globalization
             int monthsInYear = GetMonthsInYear(year, era);
             if (month < 1 || month > monthsInYear)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(month),
-                    month,
-                    SR.Format(SR.ArgumentOutOfRange_Range, 1, monthsInYear));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(month), month, 1, monthsInYear);
             }
         }
 
@@ -329,10 +323,7 @@ namespace System.Globalization
             int daysInMonth = GetDaysInMonth(year, month, era);
             if (day < 1 || day > daysInMonth)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(day),
-                    day,
-                    SR.Format(SR.ArgumentOutOfRange_Range, 1, daysInMonth));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(day), day, 1, daysInMonth);
             }
         }
 
@@ -878,10 +869,7 @@ namespace System.Globalization
 
             if (year > MaxHebrewYear || year < MinHebrewYear)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(year),
-                    year,
-                    SR.Format(SR.ArgumentOutOfRange_Range, MinHebrewYear, MaxHebrewYear));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(year), year, MinHebrewYear, MaxHebrewYear);
             }
             return year;
         }

@@ -48,10 +48,7 @@ namespace System.Globalization
         {
             if (type < GregorianCalendarTypes.Localized || type > GregorianCalendarTypes.TransliteratedFrench)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(type),
-                    type,
-                    SR.Format(SR.ArgumentOutOfRange_Range, GregorianCalendarTypes.Localized, GregorianCalendarTypes.TransliteratedFrench));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(type), type, GregorianCalendarTypes.Localized, GregorianCalendarTypes.TransliteratedFrench);
             }
 
             _type = type;
@@ -65,10 +62,7 @@ namespace System.Globalization
                 VerifyWritable();
                 if (value < GregorianCalendarTypes.Localized || value > GregorianCalendarTypes.TransliteratedFrench)
                 {
-                    throw new ArgumentOutOfRangeException(
-                        nameof(value),
-                        value,
-                        SR.Format(SR.ArgumentOutOfRange_Range, GregorianCalendarTypes.Localized, GregorianCalendarTypes.TransliteratedFrench));
+                    ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(value), value, GregorianCalendarTypes.Localized, GregorianCalendarTypes.TransliteratedFrench);
                 }
 
                 _type = value;
@@ -138,10 +132,7 @@ namespace System.Globalization
         {
             if (months < -120000 || months > 120000)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(months),
-                    months,
-                    SR.Format(SR.ArgumentOutOfRange_Range, -120000, 120000));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(months), months, -120000, 120000);
             }
 
             time.GetDate(out int y, out int m, out int d);
@@ -251,10 +242,7 @@ namespace System.Globalization
             }
             if (year < 1 || year > MaxYear)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(year),
-                    year,
-                    SR.Format(SR.ArgumentOutOfRange_Range, 1, MaxYear));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(year), year, 1, MaxYear);
             }
 
             return 12;
@@ -290,10 +278,7 @@ namespace System.Globalization
         {
             if (month < 1 || month > 12)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(month),
-                    month,
-                    SR.Format(SR.ArgumentOutOfRange_Range, 1, 12));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(month), month, 1, 12);
             }
 
             if (era != CurrentEra && era != ADEra)
@@ -302,17 +287,11 @@ namespace System.Globalization
             }
             if (year < 1 || year > MaxYear)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(year),
-                    year,
-                    SR.Format(SR.ArgumentOutOfRange_Range, 1, MaxYear));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(year), year, 1, MaxYear);
             }
             if (day < 1 || day > GetDaysInMonth(year, month))
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(day),
-                    day,
-                    SR.Format(SR.ArgumentOutOfRange_Range, 1, GetDaysInMonth(year, month)));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(day), day, 1, GetDaysInMonth(year, month));
             }
 
             return IsLeapYear(year) && month == 2 && day == 29;
@@ -331,10 +310,7 @@ namespace System.Globalization
             }
             if (year < 1 || year > MaxYear)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(year),
-                    year,
-                    SR.Format(SR.ArgumentOutOfRange_Range, 1, MaxYear));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(year), year, 1, MaxYear);
             }
 
             return 0;
@@ -352,17 +328,11 @@ namespace System.Globalization
             }
             if (year < 1 || year > MaxYear)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(year),
-                    year,
-                    SR.Format(SR.ArgumentOutOfRange_Range, 1, MaxYear));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(year), year, 1, MaxYear);
             }
             if (month < 1 || month > 12)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(month),
-                    month,
-                    SR.Format(SR.ArgumentOutOfRange_Range, 1, 12));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(month), month, 1, 12);
             }
 
             return false;
@@ -424,10 +394,7 @@ namespace System.Globalization
                 VerifyWritable();
                 if (value < 99 || value > MaxYear)
                 {
-                    throw new ArgumentOutOfRangeException(
-                        nameof(value),
-                        value,
-                        SR.Format(SR.ArgumentOutOfRange_Range, 99, MaxYear));
+                    ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(value), value, 99, MaxYear);
                 }
                 _twoDigitYearMax = value;
             }

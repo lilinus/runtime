@@ -147,7 +147,7 @@ namespace System
             if (originalSecond == 60 &&
                !DateTime.IsValidTimeWithLeapSeconds(_dateTime.Year, _dateTime.Month, _dateTime.Day, _dateTime.Hour, _dateTime.Minute, DateTimeKind.Utc))
             {
-                throw new ArgumentOutOfRangeException(null, SR.ArgumentOutOfRange_BadHourMinuteSecond);
+                ThrowHelper.ThrowArgumentOutOfRange_BadHourMinuteSecond();
             }
         }
 
@@ -169,7 +169,7 @@ namespace System
             if (originalSecond == 60 &&
                !DateTime.IsValidTimeWithLeapSeconds(_dateTime.Year, _dateTime.Month, _dateTime.Day, _dateTime.Hour, _dateTime.Minute, DateTimeKind.Utc))
             {
-                throw new ArgumentOutOfRangeException(null, SR.ArgumentOutOfRange_BadHourMinuteSecond);
+                ThrowHelper.ThrowArgumentOutOfRange_BadHourMinuteSecond();
             }
         }
 
@@ -191,7 +191,7 @@ namespace System
             if (originalSecond == 60 &&
                !DateTime.IsValidTimeWithLeapSeconds(_dateTime.Year, _dateTime.Month, _dateTime.Day, _dateTime.Hour, _dateTime.Minute, DateTimeKind.Utc))
             {
-                throw new ArgumentOutOfRangeException(null, SR.ArgumentOutOfRange_BadHourMinuteSecond);
+                ThrowHelper.ThrowArgumentOutOfRange_BadHourMinuteSecond();
             }
         }
 

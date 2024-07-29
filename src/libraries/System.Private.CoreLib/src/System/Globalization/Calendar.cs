@@ -475,10 +475,7 @@ namespace System.Globalization
         {
             if (firstDayOfWeek < DayOfWeek.Sunday || firstDayOfWeek > DayOfWeek.Saturday)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(firstDayOfWeek),
-                    firstDayOfWeek,
-                    SR.Format(SR.ArgumentOutOfRange_Range, DayOfWeek.Sunday, DayOfWeek.Saturday));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(firstDayOfWeek), firstDayOfWeek, DayOfWeek.Sunday, DayOfWeek.Saturday);
             }
 
             return rule switch
@@ -668,14 +665,11 @@ namespace System.Globalization
         {
             if ((uint)hour >= 24 || (uint)minute >= 60 || (uint)second >= 60)
             {
-                throw new ArgumentOutOfRangeException(null, SR.ArgumentOutOfRange_BadHourMinuteSecond);
+                ThrowHelper.ThrowArgumentOutOfRange_BadHourMinuteSecond();
             }
             if ((uint)millisecond >= TimeSpan.MillisecondsPerSecond)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(millisecond),
-                    millisecond,
-                    SR.Format(SR.ArgumentOutOfRange_Range, 0, TimeSpan.MillisecondsPerSecond - 1));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(millisecond), millisecond, 0, (int)(TimeSpan.MillisecondsPerSecond - 1));
             }
 
             int totalSeconds = hour * 3600 + minute * 60 + second;
