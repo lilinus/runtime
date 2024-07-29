@@ -129,12 +129,7 @@ namespace System.Globalization
 
                     if (throwOnError)
                     {
-                        throw new ArgumentOutOfRangeException(
-                                    nameof(year),
-                                    SR.Format(
-                                        SR.ArgumentOutOfRange_Range,
-                                        eraInfo.minEraYear,
-                                        eraInfo.maxEraYear));
+                        ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(year), year, eraInfo.minEraYear, eraInfo.maxEraYear);
                     }
 
                     break; // no need to iterate more on eras.
@@ -203,12 +198,7 @@ namespace System.Globalization
         {
             if (months < -120000 || months > 120000)
             {
-                throw new ArgumentOutOfRangeException(
-                            nameof(months),
-                            SR.Format(
-                                SR.ArgumentOutOfRange_Range,
-                                -120000,
-                                120000));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(months), months, -120000, 120000);
             }
             CheckTicksRange(time.Ticks);
 
@@ -399,12 +389,7 @@ namespace System.Globalization
             // year/month/era checking is done in GetDaysInMonth()
             if (day < 1 || day > GetDaysInMonth(year, month, era))
             {
-                throw new ArgumentOutOfRangeException(
-                            nameof(day),
-                            SR.Format(
-                                SR.ArgumentOutOfRange_Range,
-                                1,
-                                GetDaysInMonth(year, month, era)));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(day), day, 1, GetDaysInMonth(year, month, era));
             }
 
             if (!IsLeapYear(year, era))
@@ -439,12 +424,7 @@ namespace System.Globalization
             ValidateYearInEra(year, era);
             if (month < 1 || month > 12)
             {
-                throw new ArgumentOutOfRangeException(
-                            nameof(month),
-                            SR.Format(
-                                SR.ArgumentOutOfRange_Range,
-                                1,
-                                12));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(month), month, 1, 12);
             }
             return false;
         }
@@ -487,9 +467,7 @@ namespace System.Globalization
 
             if (year < m_minYear || year > m_maxYear)
             {
-                throw new ArgumentOutOfRangeException(
-                            nameof(year),
-                            SR.Format(SR.ArgumentOutOfRange_Range, m_minYear, m_maxYear));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(year), year, m_minYear, m_maxYear);
             }
 
             // If the year value is above 100, just return the year value.  Don't have to do

@@ -160,9 +160,7 @@ namespace System.Globalization
             CheckEraRange(era);
             if (year < 1 || year > MaxCalendarYear)
             {
-                throw new ArgumentOutOfRangeException(
-                            nameof(year),
-                            SR.Format(SR.ArgumentOutOfRange_Range, 1, MaxCalendarYear));
+                ThrowHelper.ThrowArgumentOutOfRange_Range(nameof(year), year, 1, MaxCalendarYear);
             }
         }
 
