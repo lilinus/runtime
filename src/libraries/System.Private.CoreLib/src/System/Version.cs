@@ -247,10 +247,7 @@ namespace System
                     _ => _Revision
                 };
 
-                int valueCharsWritten;
-                bool formatted = typeof(TChar) == typeof(char) ?
-                    ((uint)value).TryFormat(Unsafe.BitCast<Span<TChar>, Span<char>>(destination), out valueCharsWritten) :
-                    ((uint)value).TryFormat(Unsafe.BitCast<Span<TChar>, Span<byte>>(destination), out valueCharsWritten, default, CultureInfo.InvariantCulture);
+                bool formatted = Number.TryUInt32ToDecStr((uint)value, destination, out int valueCharsWritten);
 
                 if (!formatted)
                 {
