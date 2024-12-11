@@ -68,6 +68,31 @@ namespace System.Numerics.Tensors
             where T : IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>, IMultiplyOperators<T, T, T> =>
             Aggregate<T, SquaredOperator<T>, AddOperator<T>>(x);
 
+        /// <summary>Computes the sum of the square of difference of every element and a value in the specified tensor of numbers.</summary>
+        /// <param name="x">The tensor, represented as a span.</param>
+        /// <param name="y">The value used to calculate the difference.</param>
+        /// <returns>The result of adding the square of every element in <paramref name="x"/>, or zero if <paramref name="x"/> is empty.</returns>
+        /// <remarks>
+        /// <para>
+        /// This method effectively computes:
+        /// <c>
+        ///     Span&lt;T&gt; differences = ...;
+        ///     TensorPrimitives.Subtract(x, y, differences);
+        ///     Span&lt;T&gt; squaredValues = ...;
+        ///     TensorPrimitives.Multiply(differences, differences, squaredValues);
+        ///     T result = TensorPrimitives.Sum(squaredValues);
+        /// </c>
+        /// but without requiring intermediate storage for the intermediary values.
+        /// </para>
+        /// <para>
+        /// This method may call into the underlying C runtime or employ instructions specific to the current architecture. Exact results may differ between different
+        /// operating systems or architectures.
+        /// </para>
+        /// </remarks>
+        internal static T SumOfSquaredDifferences<T>(ReadOnlySpan<T> x, T y)
+            where T : IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>, IMultiplyOperators<T, T, T>, ISubtractionOperators<T, T, T> =>
+            Aggregate<T, SubtractSquaredOperator<T>, AddOperator<T>>(x, y);
+
         /// <summary>x * x</summary>
         internal readonly struct SquaredOperator<T> : IUnaryOperator<T, T> where T : IMultiplyOperators<T, T, T>
         {

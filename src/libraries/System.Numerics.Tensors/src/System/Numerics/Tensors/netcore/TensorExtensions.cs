@@ -3515,12 +3515,7 @@ namespace System.Numerics.Tensors
             where T : IFloatingPoint<T>, IPowerFunctions<T>, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
         {
             T mean = Average(x);
-            Span<T> span = MemoryMarshal.CreateSpan(ref x._reference, (int)x._shape._memoryLength);
-            Span<T> output = new T[x.FlattenedLength];
-            TensorPrimitives.Subtract(span, mean, output);
-            TensorPrimitives.Abs(output, output);
-            TensorPrimitives.Pow((ReadOnlySpan<T>)output, T.CreateChecked(2), output);
-            T sum = TensorPrimitives.Sum((ReadOnlySpan<T>)output);
+            T sum = TensorPrimitivesHelperSpanInTInTOut(x, mean, TensorPrimitives.SumOfSquaredDifferences);
             return T.CreateChecked(sum / T.CreateChecked(x._shape._memoryLength));
         }
         #endregion
@@ -6852,6 +6847,8 @@ namespace System.Numerics.Tensors
 
         private delegate T PerformCalculationTwoSpanInTOut<T>(ReadOnlySpan<T> input, ReadOnlySpan<T> inputTwo);
 
+        private delegate T PerformCalculationSpanInTInTOut<T>(ReadOnlySpan<T> input, T value);
+
         private delegate T PerformCalculationSpanInTOut<T>(ReadOnlySpan<T> input);
 
         private static T TensorPrimitivesHelperSpanInTOut<T>(scoped in ReadOnlyTensorSpan<T> input, PerformCalculationSpanInTOut<T> performCalculation)
@@ -6870,6 +6867,25 @@ namespace System.Numerics.Tensors
                 T[] flattened = new T[flattenedLength];
                 input.FlattenTo(flattened);
                 return performCalculation(flattened);
+            }
+        }
+
+        private static T TensorPrimitivesHelperSpanInTInTOut<T>(scoped in ReadOnlyTensorSpan<T> input, T value, PerformCalculationSpanInTInTOut<T> performCalculation)
+        {
+            if (TensorHelpers.IsContiguousAndDense(input))
+            {
+                ReadOnlySpan<T> span = MemoryMarshal.CreateSpan(ref input._reference, (int)input._shape.FlattenedLength);
+                return performCalculation(span, value);
+            }
+            // Flattening needs to happen
+            else
+            {
+                // TODO: Can optimize this to not need to realize the broadcasts
+                // That will need to be done on a per method basis.
+                nint flattenedLength = input.FlattenedLength;
+                T[] flattened = new T[flattenedLength];
+                input.FlattenTo(flattened);
+                return performCalculation(flattened, value);
             }
         }
 
