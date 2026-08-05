@@ -174,26 +174,5 @@ namespace System.CodeDom.Tests
             Assert.Equal(1, collection.Count);
             Assert.Same(value2, collection[0]);
         }
-
-        private static void VerifyCollection(CodeNamespaceCollection collection, CodeNamespace[] contents)
-        {
-            Assert.Equal(contents.Length, collection.Count);
-            for (int i = 0; i < contents.Length; i++)
-            {
-                CodeNamespace content = contents[i];
-                Assert.Equal(i, collection.IndexOf(content));
-                Assert.True(collection.Contains(content));
-                Assert.Same(content, collection[i]);
-            }
-
-            const int Index = 1;
-            var copy = new CodeNamespace[collection.Count + Index];
-            collection.CopyTo(copy, Index);
-            Assert.Null(copy[0]);
-            for (int i = Index; i < copy.Length; i++)
-            {
-                Assert.Same(contents[i - Index], copy[i]);
-            }
-        }
     }
 }
