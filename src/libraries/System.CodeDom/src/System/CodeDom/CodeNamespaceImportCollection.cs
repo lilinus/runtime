@@ -16,6 +16,10 @@ namespace System.CodeDom
             get => (CodeNamespaceImport)_data[index];
             set
             {
+                if (value is null)
+                {
+                    throw new NullReferenceException(); // For compatibility
+                }
                 _data[index] = value;
                 SyncKeys();
             }
@@ -83,7 +87,12 @@ namespace System.CodeDom
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        int IList.Add(object value) => _data.Add((CodeNamespaceImport)value);
+        int IList.Add(object value)
+        {
+            CodeNamespaceImport import = (CodeNamespaceImport)value;
+            _keys[import.Namespace] = import;
+            return _data.Add(import);
+        }
 
         void IList.Clear() => Clear();
 
@@ -93,6 +102,10 @@ namespace System.CodeDom
 
         void IList.Insert(int index, object value)
         {
+            if (value is null)
+            {
+                throw new NullReferenceException(); // For compatibility
+            }
             _data.Insert(index, (CodeNamespaceImport)value);
             SyncKeys();
         }
