@@ -46,6 +46,18 @@ namespace System.CodeDom.Tests
             var value2 = new CodeNamespaceImport("Namespace");
             collection.Add(value2);
             Assert.Equal(1, collection.Count);
+
+            // IList.Add has long standing behavior to add the value even if duplicate
+            Assert.Equal(1, ((IList)collection).Add(value1));
+            Assert.Equal(2, collection.Count);
+
+            var anotherValue = new CodeNamespaceImport("AnotherNamespace");
+            Assert.Equal(2, ((IList)collection).Add(anotherValue));
+            Assert.Equal(3, collection.Count);
+
+            // Check that we don't add duplicate if the first one was added via IList.Add
+            collection.Add(anotherValue);
+            Assert.Equal(3, collection.Count);
         }
 
         [Fact]
@@ -53,6 +65,32 @@ namespace System.CodeDom.Tests
         {
             var collection = new CodeNamespaceImportCollection();
             Assert.Throws<NullReferenceException>(() => collection.Add(null));
+            Assert.Throws<NullReferenceException>(() => ((IList)collection).Add(null));
+            Assert.Equal(0, collection.Count);
+        }
+
+        [Fact]
+        public void Add_Uncastable_ThrowsInvalidCastException()
+        {
+            var collection = new CodeNamespaceImportCollection();
+            Assert.Throws<InvalidCastException>(() => ((IList)collection).Add("string"));
+            Assert.Equal(0, collection.Count);
+        }
+
+        [Fact]
+        public void Insert_Null_ThrowsNullReferenceException()
+        {
+            var collection = new CodeNamespaceImportCollection();
+            Assert.Throws<NullReferenceException>(() => ((IList)collection).Insert(0, null));
+            Assert.Equal(0, collection.Count);
+        }
+
+        [Fact]
+        public void Insert_Uncastable_ThrowsInvalidCastException()
+        {
+            var collection = new CodeNamespaceImportCollection();
+            Assert.Throws<InvalidCastException>(() => ((IList)collection).Insert(0, "string"));
+            Assert.Equal(0, collection.Count);
         }
 
         public static IEnumerable<object[]> AddRange_TestData()
@@ -97,6 +135,31 @@ namespace System.CodeDom.Tests
             var collection = new CodeNamespaceCollection();
             AssertExtensions.Throws<ArgumentOutOfRangeException>("index", () => collection[index]);
             AssertExtensions.Throws<ArgumentOutOfRangeException>("index", () => collection[index] = new CodeNamespace());
+        }
+
+        [Fact]
+        public void Item_Set_Null_ThrowsNullReferenceException()
+        {
+            var collection = new CodeNamespaceImportCollection();
+            var value = new CodeNamespaceImport();
+            collection.Add(value);
+
+            Assert.Throws<NullReferenceException>(() => collection[0] = null);
+            Assert.Throws<NullReferenceException>(() => ((IList)collection)[0] = null);
+            Assert.Equal(value, collection[0]);
+            Assert.Equal(1, collection.Count);
+        }
+
+        [Fact]
+        public void Item_Set_Uncastable_ThrowsInvalidCastException()
+        {
+            var collection = new CodeNamespaceImportCollection();
+            var value = new CodeNamespaceImport();
+            collection.Add(value);
+
+            Assert.Throws<InvalidCastException>(() => ((IList)collection)[0] = "string");
+            Assert.Equal(value, collection[0]);
+            Assert.Equal(1, collection.Count);
         }
 
         [Fact]
